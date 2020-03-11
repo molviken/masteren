@@ -1,0 +1,6 @@
+Added Component: Designator=C21(C0402)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "100nF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC Pin=C21-1
+Added Pin To Net: NetName=GND Pin=C21-2
+Added Member To Class: ClassName=main_board Member=Component C21 04023C103KAT2A

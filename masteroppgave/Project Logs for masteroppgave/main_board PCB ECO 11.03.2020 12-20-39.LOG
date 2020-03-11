@@ -1,0 +1,3 @@
+Change component parameters: Designator = "J1"; Footprint = "JTAG HEADER"; UniqueID = "\BSBTFGQM"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Type"; Value = "JTAG"; VariantName = "[No Variations]"

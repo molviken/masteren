@@ -1,0 +1,18 @@
+Removed Pin From Net: NetName=TOSC1 Pin=C1-1
+Removed Pin From Net: NetName=GND Pin=C1-2
+Removed Pin From Net: NetName=TOSC2 Pin=C3-1
+Removed Pin From Net: NetName=GND Pin=C3-2
+Change Component Footprint: Designator=C1 Old Footprint=CAPC0805(2012)100_N New Footprint=C0402
+Change Component Footprint: Designator=C3 Old Footprint=CAPC0805(2012)100_N New Footprint=C0402
+Change Component Comment : Designator=C1 Old Comment=22pF New Comment=04023C103KAT2A
+Change Component Comment : Designator=C3 Old Comment=22pF New Comment=04023C103KAT2A
+Change component parameters: Designator = "C1"; Footprint = "C0402"; UniqueID = "\GDVDQWKL"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Value"; Value = "22pF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C3"; Footprint = "C0402"; UniqueID = "\ENGOJZFB"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Value"; Value = "22pF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C1-1
+Added Pin To Net: NetName=TOSC1 Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C3-1
+Added Pin To Net: NetName=TOSC2 Pin=C3-2

@@ -1,0 +1,31 @@
+Removed Pin From Net: NetName=Vbat Pin=MCU1-34
+Removed Pin From Net: NetName=GND Pin=MCU1-36
+Removed Pin From Net: NetName=Vpanel Pin=MCU1-37
+Added Component: Designator=R18(R0402)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "? kohm"; VariantName = "[No Variations]"
+Added Component: Designator=R19(R0402)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "41.2kohm"; VariantName = "[No Variations]"
+Added Component: Designator=R20(R0402)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "? kohm"; VariantName = "[No Variations]"
+Added Component: Designator=R21(R0402)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "150kohm"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=Vpanel Pin=R18-1
+Added Pin To Net: NetName=Vbat Pin=R19-1
+Added Pin To Net: NetName=GND Pin=R20-2
+Added Pin To Net: NetName=GND Pin=R21-2
+Added Pin To Net: NetName=NetMCU1_36 Pin=MCU1-36
+Added Pin To Net: NetName=NetMCU1_36 Pin=R18-2
+Added Pin To Net: NetName=NetMCU1_36 Pin=R20-1
+Added Net: Name=NetMCU1_36
+Added Pin To Net: NetName=NetMCU1_37 Pin=MCU1-37
+Added Pin To Net: NetName=NetMCU1_37 Pin=R19-2
+Added Pin To Net: NetName=NetMCU1_37 Pin=R21-1
+Added Net: Name=NetMCU1_37
+Added Member To Class: ClassName=main_board Member=Component R18 CRCW04020000Z0ED
+Added Member To Class: ClassName=main_board Member=Component R19 CRCW04020000Z0ED
+Added Member To Class: ClassName=main_board Member=Component R20 CRCW04020000Z0ED
+Added Member To Class: ClassName=main_board Member=Component R21 CRCW04020000Z0ED

@@ -1,0 +1,13 @@
+Added Component: Designator=B(18650)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=Vbat Pin=B-1
+Added Pin To Net: NetName=Vbat Pin=B-1
+Added Pin To Net: NetName=Vbat Pin=B-1
+Added Pin To Net: NetName=GND Pin=B-2
+Added Pin To Net: NetName=GND Pin=B-2
+Added Pin To Net: NetName=GND Pin=B-2
+Added Member To Class: ClassName=main_board Member=Component B 18650
+Added Member To Class: ClassName=main_board Member=Component C3 22pF
+Added Member To Class: ClassName=main_board Member=Component C? 04023C103KAT2A
+Added Member To Class: ClassName=main_board Member=Component U6 BQ24210DQCT
+Added Member To Class: ClassName=main_board Member=Component U? TPS61201DRCT

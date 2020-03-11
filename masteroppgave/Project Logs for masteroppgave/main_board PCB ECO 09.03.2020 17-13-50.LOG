@@ -1,0 +1,7 @@
+Change Component Designator: OldDesignator=C? NewDesignator=C17
+Change Component Designator: OldDesignator=C? NewDesignator=C18
+Change Component Designator: OldDesignator=CHG NewDesignator=D1
+Change Component Designator: OldDesignator=PG NewDesignator=D2
+Added Pin To Net: NetName=Vbat Pin=C8-1
+Added Pin To Net: NetName=NetC9_1 Pin=C9-1
+Added Member To Class: ClassName=main_board Member=Component C18 04023C103KAT2A

@@ -1,0 +1,14 @@
+Removed Pin From Net: NetName=GND Pin=J1-2
+Removed Pin From Net: NetName=VCC Pin=J1-4
+Removed Pin From Net: NetName=RST Pin=J1-6
+Removed Pin From Net: NetName=GND Pin=J1-10
+Removed Member From Class: ClassName=main_board Member=J1
+Added Pin To Net: NetName=NetJ?_1 Pin=MCU1-21
+Added Net: Name=NetJ?_1
+Added Pin To Net: NetName=NetJ?_3 Pin=MCU1-23
+Added Net: Name=NetJ?_3
+Added Pin To Net: NetName=NetJ?_5 Pin=MCU1-22
+Added Net: Name=NetJ?_5
+Added Pin To Net: NetName=NetJ?_9 Pin=MCU1-24
+Added Net: Name=NetJ?_9
+Added Member To Class: ClassName=main_board Member=Component SMT2 U.FL-R-SMT

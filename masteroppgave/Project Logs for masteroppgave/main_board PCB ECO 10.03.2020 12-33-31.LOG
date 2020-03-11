@@ -1,0 +1,16 @@
+Change Component Designator: OldDesignator=T1 NewDesignator=T
+Added Component: Designator=C19(C0402)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "0.1uF"; VariantName = "[No Variations]"
+Added Component: Designator=C20(C0402)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "0.1uF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C8-1
+Added Pin To Net: NetName=GND Pin=C9-1
+Added Pin To Net: NetName=GND Pin=C19-1
+Added Pin To Net: NetName=VCC Pin=C19-2
+Added Pin To Net: NetName=GND Pin=C20-1
+Added Pin To Net: NetName=VCC Pin=C20-2
+Added Member To Class: ClassName=main_board Member=Component C17 04023C103KAT2A
+Added Member To Class: ClassName=main_board Member=Component C19 04023C103KAT2A
+Added Member To Class: ClassName=main_board Member=Component C20 04023C103KAT2A
