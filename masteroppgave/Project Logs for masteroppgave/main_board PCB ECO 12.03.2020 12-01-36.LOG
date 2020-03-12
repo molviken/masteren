@@ -1,0 +1,21 @@
+Removed Member From Class: ClassName=main_board Member=J5
+Added Component: Designator=J?(HDRV2W64P254_1X2_508X254X900B)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "beskrivelse"; Value = "2,54mm pitch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "id"; Value = "5094"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "komponenttype"; Value = "11"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "navn"; Value = "Header 1x2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "pakke_opprettet"; Value = "13.11.2014 12:30:48"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "pakke_opprettet_av"; Value = "815"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "pakketype"; Value = "TH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "pris"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "symbol_opprettet"; Value = "13.11.2014 10:58:53"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "symbol_opprettet_av"; Value = "815"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GPIO4 Pin=MCU1-14
+Added Pin To Net: NetName=NetJ?_1 Pin=J?-1
+Added Pin To Net: NetName=NetJ?_1 Pin=MCU1-15
+Added Net: Name=NetJ?_1
+Added Pin To Net: NetName=NetJ?_2 Pin=J?-2
+Added Pin To Net: NetName=NetJ?_2 Pin=MCU1-16
+Added Net: Name=NetJ?_2
+Added Member To Class: ClassName=main_board Member=Component J? Header 1x2

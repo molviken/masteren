@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=GPIO5 Pin=btn1-3
+Removed Pin From Net: NetName=GPIO5 Pin=btn1-4
+Removed Pin From Net: NetName=GPIO2 Pin=T-1
+Added Pin To Net: NetName=GPIO2 Pin=MCU1-17
+Added Pin To Net: NetName=GPIO5 Pin=MCU1-38
+Added Pin To Net: NetName=SCK0 Pin=MCU1-39
+Added Pin To Net: NetName=GPIO2 Pin=U5-5
+Added Pin To Net: NetName=GPIO1 Pin=MCU1-13
+Added Pin To Net: NetName=GPIO1 Pin=T-1
+Added Net: Name=GPIO1
+Added Pin To Net: NetName=GPIO3 Pin=btn1-3
+Added Pin To Net: NetName=GPIO3 Pin=btn1-4
+Added Pin To Net: NetName=GPIO3 Pin=MCU1-18
+Added Net: Name=GPIO3
+Added Member To Class: ClassName=main_board Member=Component C6 04023C103KAT2A
