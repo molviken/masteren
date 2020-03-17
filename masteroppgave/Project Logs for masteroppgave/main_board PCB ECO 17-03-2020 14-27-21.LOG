@@ -1,0 +1,21 @@
+Added Component: Designator=TP11(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP12(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP13(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP14(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP15(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC Pin=TP11-1
+Added Pin To Net: NetName=Vbat Pin=TP12-1
+Added Pin To Net: NetName=NetC9_1 Pin=TP13-1
+Added Pin To Net: NetName=GPIO1 Pin=TP14-1
+Added Pin To Net: NetName=GPIO4 Pin=TP15-1
+Added Member To Class: ClassName=main_board Member=Component TP6 Test point
+Added Member To Class: ClassName=main_board Member=Component TP11 Test point
+Added Member To Class: ClassName=main_board Member=Component TP12 Test point
+Added Member To Class: ClassName=main_board Member=Component TP13 Test point
+Added Member To Class: ClassName=main_board Member=Component TP14 Test point
+Added Member To Class: ClassName=main_board Member=Component TP15 Test point

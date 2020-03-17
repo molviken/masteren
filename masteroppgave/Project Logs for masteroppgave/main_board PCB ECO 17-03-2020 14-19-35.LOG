@@ -1,0 +1,40 @@
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TEST POINT)
+Add component (AddParameter): Name = "Type"; Value = "I2C/SCL"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=MISO0 Pin=TP?-1
+Added Pin To Net: NetName=MOSI0 Pin=TP?-1
+Added Pin To Net: NetName=RX0 Pin=TP?-1
+Added Pin To Net: NetName=RX1 Pin=TP?-1
+Added Pin To Net: NetName=SCL Pin=TP?-1
+Added Pin To Net: NetName=SDA Pin=TP?-1
+Added Pin To Net: NetName=TX0 Pin=TP?-1
+Added Pin To Net: NetName=TX1 Pin=TP?-1
+Added Pin To Net: NetName=Vcurr Pin=TP?-1
+Added Pin To Net: NetName=Vpanel Pin=TP?-1
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
+Added Member To Class: ClassName=main_board Member=Component TP? Test point
