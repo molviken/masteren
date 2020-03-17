@@ -1,0 +1,12 @@
+Change Component Designator: OldDesignator=R? NewDesignator=R24
+Added Component: Designator=C23(C0402)
+Add component (AddParameter): Name = "Value"; Value = "10 nF"; VariantName = "[No Variations]"
+Added Component: Designator=C24(C0402)
+Add component (AddParameter): Name = "Value"; Value = "10 nF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=RX1 Pin=C23-1
+Added Pin To Net: NetName=GND Pin=C23-2
+Added Pin To Net: NetName=GND Pin=C24-1
+Added Pin To Net: NetName=TX1 Pin=C24-2
+Change Net Name : Old Net Name=NetR?_1 New Net Name=NetR24_1
+Added Member To Class: ClassName=main_board Member=Component C23 04023C103KAT2A
+Added Member To Class: ClassName=main_board Member=Component C24 04023C103KAT2A

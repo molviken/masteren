@@ -1,0 +1,22 @@
+Change Component Designator: OldDesignator=J? NewDesignator=J5
+Change Managed Component Library Link : Designator=D3 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=209CFBF9-3DEC-4439-9809-9BA5D2CF46EB Old RevisionGUID= New RevisionGUID=38E65718-C60D-4E85-B69E-7BDC007BF030
+Change Managed Component Library Link : Designator=J2 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=641B81C1-6E59-4778-B2DF-DEA897EFC6F7 Old RevisionGUID= New RevisionGUID=6F87D235-84D4-4185-8EEB-751A0E6E9FC5
+Change Managed Component Library Link : Designator=J3 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=2BF87BE4-D921-405E-AF05-EAB5C5B1D3A3 Old RevisionGUID= New RevisionGUID=85AD688A-3441-4A4D-A222-7DF2FF47AB65
+Change Managed Component Library Link : Designator=L2 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=474CEE13-EB1A-42C2-8A5F-DC8C28018828 Old RevisionGUID= New RevisionGUID=D13FBC8E-C529-4039-A8D4-67725555121E
+Change Managed Component Library Link : Designator=P1 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=711F0E8F-5958-4A0A-ABD4-15989E010D0B Old RevisionGUID= New RevisionGUID=0A68D64A-9384-4AA4-AE31-F67A4B53AB81
+Change Managed Component Library Link : Designator=U1 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=17568953-EEFD-4E52-A79E-5A19405DAB73 Old RevisionGUID= New RevisionGUID=9B1DD7C6-1DF5-4018-9A13-8D1B8A9C2071
+Change Managed Component Library Link : Designator=U2 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=8751F0F1-5CDB-434D-AB9B-5C0704D38343 Old RevisionGUID= New RevisionGUID=11D68954-AAD8-4777-AC85-6E78159FEE8E
+Change Managed Component Library Link : Designator=U3 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=8A984311-C295-493B-A4F7-C80C40B599AC Old RevisionGUID= New RevisionGUID=601E4F73-854F-470D-909F-815807A07208
+Change Managed Component Library Link : Designator=U4 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=FC377CDE-CF5E-4574-8D8B-2E5DD9B6AE59 Old RevisionGUID= New RevisionGUID=3B1F4F4D-8CC8-4BAD-B0B0-C1707C35E1F9
+Change Managed Component Library Link : Designator=U6 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=3C1E92C9-7C0E-4F0B-8E5B-B3C5C5314291 Old RevisionGUID= New RevisionGUID=0B14AB1B-8477-4340-9A4B-47CE6EB2EA7D
+Change Managed Component Library Link : Designator=U7 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=04C65D10-8846-4252-B66D-BD1165FE6264 Old RevisionGUID= New RevisionGUID=0965EE87-D472-4684-A0F1-E7DEA629C8D8
+Change Managed Component Library Link : Designator=U8 Old VaultGUID= New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID= New ItemGUID=77CE5F97-2C7D-49BF-A675-2ED31DF37601 Old RevisionGUID= New RevisionGUID=76FE9B3D-D240-4A5D-B519-48B4C99BE1E0
+Added Component: Designator=R14(R0402)
+Add component (AddParameter): Name = "Value"; Value = "10kohm"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC Pin=R14-1
+Added Pin To Net: NetName=SDA Pin=R14-2
+Change Net Name : Old Net Name=NetJ?_1 New Net Name=NetJ5_1
+Change Net Name : Old Net Name=NetJ?_2 New Net Name=NetJ5_2
+Added Member To Class: ClassName=main_board Member=Component C6 04023C103KAT2A
+Added Member To Class: ClassName=main_board Member=Component J5 Header 1x2
+Added Member To Class: ClassName=main_board Member=Component R14 CRCW04020000Z0ED

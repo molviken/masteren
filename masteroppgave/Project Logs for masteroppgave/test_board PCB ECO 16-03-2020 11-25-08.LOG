@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=RFH Pin=SMT1_1-P$1
+Removed Pin From Net: NetName=RFL Pin=SMT3_1-P$1
+Change component parameters: Designator = "C23" ("C23"); Footprint = "C0402"; UniqueID = "\CVBXIUOC" ("\CVBXIUOC")
+Change component parameters (AddParameter): Name = "Value"; Value = "56 pF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C24" ("C24"); Footprint = "C0402"; UniqueID = "\LZTWYHPQ" ("\LZTWYHPQ")
+Change component parameters (AddParameter): Name = "Value"; Value = "56 pF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=R24-2

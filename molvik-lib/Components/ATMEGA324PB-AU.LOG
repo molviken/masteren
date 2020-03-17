@@ -1,0 +1,28 @@
+PCAD Importer Log
+Project : ATMEGA324PB-AU.LibPkg
+
+Section : C:\Users\oystmol\Documents\ATMEGA324PB-AU.lia
+    Section : PCB Library - ATMEGA324PB-AU.PcbLib
+        Section : Load Messages
+            Warning - 1 : Skipping Token ATMEGA324PB-AU On Line 233
+            Warning - 1 : Skipping Token attachedSymbol On Line 700
+        EndSection
+
+        Section : Import Messages
+        EndSection
+    EndSection
+
+    Section : SCH Library - ATMEGA324PB-AU.SchLib
+        Section : Parsing Messages
+            Warning - 1 : Skipping Token padStyleDef On Line 9
+            Warning - 1 : Skipping Token multiLayer On Line 84
+            Warning - 1 : Skipping Token layerContents On Line 130
+            Warning - 1 : Skipping Token layerContents On Line 141
+            Warning - 1 : Skipping Token layerContents On Line 147
+            Warning - 1 : Skipping Token layerContents On Line 189
+        EndSection
+
+        Section : Generating SCH Library - ATMEGA324PB-AU.SchLib
+        EndSection
+    EndSection
+EndSection
