@@ -1,0 +1,31 @@
+Removed Member From Class: ClassName=main_board Member=J4
+Removed Member From Class: ClassName=main_board Member=J5
+Added Component: Designator=P2(HDR1X5)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=P3(HDR1X6)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetMCU1_36 Pin=P2-1
+Added Pin To Net: NetName=NetMCU1_37 Pin=P2-2
+Added Pin To Net: NetName=Vcurr Pin=P2-3
+Added Pin To Net: NetName=GPIO1 Pin=P3-3
+Added Pin To Net: NetName=GPIO2 Pin=P3-4
+Added Pin To Net: NetName=GPIO3 Pin=P3-5
+Added Pin To Net: NetName=GPIO4 Pin=P3-6
+Added Pin To Net: NetName=NetMCU1_15 Pin=MCU1-15
+Added Pin To Net: NetName=NetMCU1_15 Pin=P3-1
+Added Net: Name=NetMCU1_15
+Added Pin To Net: NetName=NetMCU1_16 Pin=MCU1-16
+Added Pin To Net: NetName=NetMCU1_16 Pin=P3-2
+Added Net: Name=NetMCU1_16
+Added Pin To Net: NetName=NetMCU1_30 Pin=MCU1-30
+Added Pin To Net: NetName=NetMCU1_30 Pin=P2-5
+Added Net: Name=NetMCU1_30
+Added Pin To Net: NetName=NetMCU1_31 Pin=MCU1-31
+Added Pin To Net: NetName=NetMCU1_31 Pin=P2-4
+Added Net: Name=NetMCU1_31
+Added Member To Class: ClassName=main_board Member=Component P2 Header 5
+Added Member To Class: ClassName=main_board Member=Component P3 Header 6

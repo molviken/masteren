@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=NetMCU1_15 Pin=P3-1
+Removed Pin From Net: NetName=NetMCU1_16 Pin=P3-2
+Removed Pin From Net: NetName=GPIO1 Pin=P3-3
+Removed Pin From Net: NetName=GPIO4 Pin=P3-4
+Added Pin To Net: NetName=NetMCU1_16 Pin=P3-1
+Added Pin To Net: NetName=NetMCU1_15 Pin=P3-2
+Added Pin To Net: NetName=GPIO4 Pin=P3-3
+Added Pin To Net: NetName=GPIO1 Pin=P3-4
