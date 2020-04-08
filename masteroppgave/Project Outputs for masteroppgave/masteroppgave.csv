@@ -1,34 +1,34 @@
 Comment,Description,Designator,Footprint,LibRef,Quantity
-
-"18650","","B","18650","18650","1"
-"KSC222G LFS","Button SMD","btn1, btn2, btn3","KSC222G LFS","KSC222G LFS","3"
-"04023C103KAT2A","C0402","C1, C2, C3, C4, C5, C6, C7, C10, C11, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24","C0402","04023C103KAT2A","22"
-"TCJB106M016R0100","C3528, low ESR (0.1ohm)","C8, C9","C3528","TCJB106M016R0100","2"
-"Green LED","LED, green, 0603, 2mA, 2.65V, SMD","D1, D2, D4, D5, D6","LED 0603","Green LED","5"
-"MBR0520L","Schottky Diode, 20V, 0.2A, 2-pin SOD-123, RoHS, Tape and Reel","D3","ONSC-SOD-123-2-425-04_V","CMP-2000-04926-1","1"
-"SHF-105-01-L-D-SM","JTAG, 10 pin, 1.27mm","J1","JTAG HEADER","SHF-105-01-L-D-SM","1"
-"10118194-0001LF","Micro USB B Type Receptacle, 1.8 A, -55 to 85 degC, 5-Pin SMD, RoHS, Tape and Reel","J2","FCI-10118194-0001LF-5_V","CMP-2000-05120-1","1"
-"292303-1","1 Port Right Angle Through Hole Mount Female Type A USB Connector, 4 Position, -55 to 85 degC, RoHS, Tube","J3","TE-292303-1_V","CMP-2000-05404-1","1"
-"MLZ1608A2R2WT","Inductor 0603","L1","INDUCTOR 0603","MLZ1608A2R2WT","1"
-"LPS3015-222MRB","Shielded Power Inductor, 2.2 uH, +/- 20%, 110 mOhm, -40 to 85 degC, 2-Pin SMD, RoHS, Tape and Reel","L2","COIL-LPS3015_V","CMP-2000-06574-1","1"
-"LQG15HN27NJ02D","Inductor 0402","L3","INDUCTOR 0402","LQG15HN27NJ02D","1"
-"ATMEGA324PB-AU","Avr, 32kb Flash, 1kb Ee, 2kb Ram - 20mhz, Tqfp, Ind Temp, Green 5 v/ Tqfp _a_","MCU1","*QFP80P1200X1200X120-44N","ATMEGA324PB-AU","1"
-"S2B-XH-A(LF)(SN)","Male Header, Pitch 2.5 mm, 1 x 2 Position, Height 6.1 mm, Tail Length 3.4 mm, -25 to 85 degC, RoHS, Bulk","P1","JST-S2B-XH-A(LF)(SN)_V","CMP-1755-00005-1","1"
-"Header 5","Header, 5-Pin","P2, P3","HDR1X5","Header 5","2"
-"10k","0.1W 1% Thick film resistor","R1","RESC0603(1608)_N","5264","1"
-"CRCW04020000Z0ED","R0402","R2, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24","R0402","CRCW04020000Z0ED","19"
-"2k","0.1W 1% Thick film resistor","R3, R4","RESC0402(1005)_L","5677","2"
-"35228R2JT","R6432, 3W","R5, R6","R6432","35228R2JT","2"
-"B57164K0103J000","Thermistor, through hole","RT1","B57164K0103J000","B57164K0103J000","1"
-"U.FL-R-SMT","","SMT1, SMT2, SMT3","*U.FL-R-SMT_U.FL-R-SMT(Primary)","U.FL-R-SMT","3"
-"DMG6968U","NMOS 6.5A 500mV","T","DMG6968U","DMG6968U","1"
-"Test point","Test point","TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9, TP10, TP11, TP12, TP13, TP14, TP15","TEST POINT","Test point","15"
-"TPS61201DRCT","Boost Voltage Converter with 0.3 to 5.5 V Input and 3.3 V Output, -40 to 85 degC, 10-Pin SON (DRC), Green (RoHS & no Sb/Br)","U1","DRC0010J_V","CMP-0343-00033-2","1"
-"SST25VF080B-50-4I-S2AF","8 Mbit SPI Serial Flash, 2.7 to 3.6 V, 50 MHz, -40 to 85 degC, 8-pin SOIC (S2A8), Tube","U2","MCHP-SOIC-S2A8_L","CMP-0378-00062-1","1"
-"RN2483A-I/RM103","Low-Power Long Range LoRa(R) Technology Transceiver Module, 2.1 to 3.6 V, -40 to 85 degC, 47-Pin SMD, RoHS, Tray","U3","MCHP-MODULE-47_V","CMP-2000-07478-1","1"
-"MAX44284FAUT+T","Input Common-Mode, High-Precision, Low-Power Current-Sense Amplifier, 3 KHz, 2 nA, 1.7 to 5.5 V, -40 to 125 degC, 6-Pin SOT23 (U6+1), RoHS, Tape and Reel","U4","MAXM-U6_V","CMP-2000-06663-1","1"
-"TESEO-LIV3F","- RF Receiver BeiDou, Galileo, GLONASS, GNSS, GPS 1.575GHz -163dBm 18-LCC _9.7x10.1_","U5","*TESEO-LIV3F","TESEO-LIV3F","1"
-"BQ24210DQCT","800 mA, Single-Input, Single Cell Li-Ion Solar Battery Charger, 3.5 V, -40 to 85 degC, 10-pin WSON (DQC), Green (RoHS & no Sb/Br)","U6","DQC0010A","CMP-0321-00481-2","1"
-"ICM-20948","World’s Lowest Power 9-Axis MEMS MotionTracking(TM) Device, 1.71 to 3.6 V, -40 to 85 degC, 24-Pin QFN, RoHS, Tape and Reel","U7","TDK-QFN-24_L","CMP-2000-07532-1","1"
-"MCP1253T-33X50I/MS","Low Noise, Positive-Regulated Charge Pump, 1MHz, Fixed Output, 8-Pin MSOP, Industrial Temperature, Tape and Reel","U8","MSOP-MS8_M","CMP-0132-00083-1","1"
-"9HT10-32.768KEZC-T","Crystal 32.768kHz, SMD, 3.2mm x 1.5mm, 9pF, 10 ppm","Y1","9HT10-32.768KEZC-T","9HT10-32.768KEZC-T","1"
+,,,,,
+18650,,B,18650,18650,1
+KSC222G LFS,Button SMD,"btn1, btn2, btn3",KSC222G LFS,KSC222G LFS,3
+04023C103KAT2A,C0402,"C1, C2, C3, C4, C5, C6, C7, C10, C11, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C22, C23, C24",C0402,04023C103KAT2A,22
+TCJB106M016R0100,"C3528, low ESR (0.1ohm)","C8, C9",C3528,TCJB106M016R0100,2
+Green LED,"LED, green, 0603, 2mA, 2.65V, SMD","D1, D2, D4, D5, D6",LED 0603,Green LED,5
+MBR0520L,"Schottky Diode, 20V, 0.2A, 2-pin SOD-123, RoHS, Tape and Reel",D3,ONSC-SOD-123-2-425-04_V,CMP-2000-04926-1,1
+SHF-105-01-L-D-SM,"JTAG, 10 pin, 1.27mm",J1,JTAG HEADER,SHF-105-01-L-D-SM,1
+10118194-0001LF,"Micro USB B Type Receptacle, 1.8 A, -55 to 85 degC, 5-Pin SMD, RoHS, Tape and Reel",J2,FCI-10118194-0001LF-5_V,CMP-2000-05120-1,1
+292303-1,"1 Port Right Angle Through Hole Mount Female Type A USB Connector, 4 Position, -55 to 85 degC, RoHS, Tube",J3,TE-292303-1_V,CMP-2000-05404-1,1
+MLZ1608A2R2WT,Inductor 0603,L1,INDUCTOR 0603,MLZ1608A2R2WT,1
+LPS3015-222MRB,"Shielded Power Inductor, 2.2 uH, +/- 20%, 110 mOhm, -40 to 85 degC, 2-Pin SMD, RoHS, Tape and Reel",L2,COIL-LPS3015_V,CMP-2000-06574-1,1
+LQG15HN27NJ02D,Inductor 0402,L3,INDUCTOR 0402,LQG15HN27NJ02D,1
+ATMEGA324PB-AU,"Avr, 32kb Flash, 1kb Ee, 2kb Ram - 20mhz, Tqfp, Ind Temp, Green 5 v/ Tqfp _a_",MCU1,*QFP80P1200X1200X120-44N,ATMEGA324PB-AU,1
+S2B-XH-A(LF)(SN),"Male Header, Pitch 2.5 mm, 1 x 2 Position, Height 6.1 mm, Tail Length 3.4 mm, -25 to 85 degC, RoHS, Bulk",P1,JST-S2B-XH-A(LF)(SN)_V,CMP-1755-00005-1,1
+Header 5,"Header, 5-Pin","P2, P3",HDR1X5,Header 5,2
+10k,0.1W 1% Thick film resistor,R1,RESC0603(1608)_N,5264,1
+CRCW04020000Z0ED,R0402,"R2, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24",R0402,CRCW04020000Z0ED,19
+2k,0.1W 1% Thick film resistor,"R3, R4",RESC0402(1005)_L,5677,2
+35228R2JT,"R6432, 3W","R5, R6",R6432,35228R2JT,2
+B57164K0103J000,"Thermistor, through hole",RT1,B57164K0103J000,B57164K0103J000,1
+U.FL-R-SMT,,"SMT1, SMT2, SMT3",*U.FL-R-SMT_U.FL-R-SMT(Primary),U.FL-R-SMT,3
+DMG6968U,NMOS 6.5A 500mV,T,DMG6968U,DMG6968U,1
+Test point,Test point,"TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9, TP10, TP11, TP12, TP13, TP14, TP15",TEST POINT,Test point,15
+TPS61201DRCT,"Boost Voltage Converter with 0.3 to 5.5 V Input and 3.3 V Output, -40 to 85 degC, 10-Pin SON (DRC), Green (RoHS & no Sb/Br)",U1,DRC0010J_V,CMP-0343-00033-2,1
+SST25VF080B-50-4I-S2AF,"8 Mbit SPI Serial Flash, 2.7 to 3.6 V, 50 MHz, -40 to 85 degC, 8-pin SOIC (S2A8), Tube",U2,MCHP-SOIC-S2A8_L,CMP-0378-00062-1,1
+RN2483A-I/RM103,"Low-Power Long Range LoRa(R) Technology Transceiver Module, 2.1 to 3.6 V, -40 to 85 degC, 47-Pin SMD, RoHS, Tray",U3,MCHP-MODULE-47_V,CMP-2000-07478-1,1
+MAX44284FAUT+T,"Input Common-Mode, High-Precision, Low-Power Current-Sense Amplifier, 3 KHz, 2 nA, 1.7 to 5.5 V, -40 to 125 degC, 6-Pin SOT23 (U6+1), RoHS, Tape and Reel",U4,MAXM-U6_V,CMP-2000-06663-1,1
+TESEO-LIV3F,"- RF Receiver BeiDou, Galileo, GLONASS, GNSS, GPS 1.575GHz -163dBm 18-LCC _9.7x10.1_",U5,*TESEO-LIV3F,TESEO-LIV3F,1
+BQ24210DQCT,"800 mA, Single-Input, Single Cell Li-Ion Solar Battery Charger, 3.5 V, -40 to 85 degC, 10-pin WSON (DQC), Green (RoHS & no Sb/Br)",U6,DQC0010A,CMP-0321-00481-2,1
+ICM-20948,"World’s Lowest Power 9-Axis MEMS MotionTracking(TM) Device, 1.71 to 3.6 V, -40 to 85 degC, 24-Pin QFN, RoHS, Tape and Reel",U7,TDK-QFN-24_L,CMP-2000-07532-1,1
+MCP1253T-33X50I/MS,"Low Noise, Positive-Regulated Charge Pump, 1MHz, Fixed Output, 8-Pin MSOP, Industrial Temperature, Tape and Reel",U8,MSOP-MS8_M,CMP-0132-00083-1,1
+9HT10-32.768KEZC-T,"Crystal 32.768kHz, SMD, 3.2mm x 1.5mm, 9pF, 10 ppm",Y1,9HT10-32.768KEZC-T,9HT10-32.768KEZC-T,1

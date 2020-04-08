@@ -2,37 +2,6 @@
 FileName = main_board.GBR
 AutoAperture = True
 *************************************************************
-Generating : Bottom Layer
-      File : main_board.GBL
-
-    Adding Layer      : Bottom Layer
-
-    Adding Layer      : Multi-Layer
-
-
-Used DCodes :
-    D10
-    D11
-    D12
-    D14
-    D71
-    D72
-    D119
-    D120
-    D121
-    D122
-    D123
-    D124
-    D125
-    D126
-    D127
-    D128
-    D129
-    D130
-    D131
-*************************************************************
-
-*************************************************************
 Generating : Bottom Overlay
       File : main_board.GBO
 
@@ -40,17 +9,6 @@ Generating : Bottom Overlay
 
 
 Used DCodes :
-*************************************************************
-
-*************************************************************
-Generating : Keep-Out Layer
-      File : main_board.GKO
-
-    Adding Layer      : Keep-Out Layer
-
-
-Used DCodes :
-    D18
 *************************************************************
 
 *************************************************************
@@ -105,6 +63,62 @@ Used DCodes :
     D58
     D59
     D60
+    D61
+    D62
+    D63
+    D64
+    D65
+    D66
+    D67
+    D68
+    D69
+    D70
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : main_board.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D14
+    D71
+    D72
+    D119
+    D120
+    D121
+    D122
+    D123
+    D124
+    D125
+    D126
+    D127
+    D128
+    D129
+    D130
+    D131
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : main_board.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D21
     D61
     D62
     D63
@@ -196,28 +210,14 @@ Used DCodes :
 *************************************************************
 
 *************************************************************
-Generating : Bottom Solder
-      File : main_board.GBS
+Generating : Keep-Out Layer
+      File : main_board.GKO
 
-    Adding Layer      : Bottom Solder
-
-    Adding Layer      : Bottom Layer
-
-    Adding Layer      : Multi-Layer
+    Adding Layer      : Keep-Out Layer
 
 
 Used DCodes :
-    D21
-    D61
-    D62
-    D63
-    D64
-    D65
-    D66
-    D67
-    D68
-    D69
-    D70
+    D17
 *************************************************************
 
 *************************************************************
