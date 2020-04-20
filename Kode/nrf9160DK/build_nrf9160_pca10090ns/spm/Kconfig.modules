@@ -1,6 +1,0 @@
-osource "C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/nrf/Kconfig.nrf"
-
-osource "C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/bootloader/mcuboot/zephyr/Kconfig"
-
-osource "C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/nrfxlib/Kconfig.nrfxlib"
-

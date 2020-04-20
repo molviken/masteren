@@ -5,10 +5,16 @@ Laboppsett/
 altium-library/
 stuff/
 Altium/altium-library/
-Kode/I2C-master-lib-master
-
+Kode/I2C-master-lib-master/
+Kode/LTE-node/build
+Kode/LTE-node/build_nrf9160_pca10090/
+Kode/LTE-node/build_nrf9160_pca10090ns/
+Kode/LTE-node/build_nrf9160_pca10090ns/*
+!Kode/LTE-node/build_nrf9160_pca10090ns/zephyr
+Kode/LTE-node/build_nrf9160_pca10090ns/zephyr/*
 
 # Files
+!Kode/LTE-node/build_nrf9160_pca10090ns/zephyr/merged.hex
 getCurrent.ino
 links.txt
 nrf9160dk_info.txt
