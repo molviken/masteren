@@ -1,0 +1,15 @@
+# Folders
+SDK/
+TTK/
+Laboppsett/
+altium-library/
+stuff/
+Altium/altium-library/
+Kode/I2C-master-lib-master
+
+
+# Files
+getCurrent.ino
+links.txt
+nrf9160dk_info.txt
+spmGeir.txt

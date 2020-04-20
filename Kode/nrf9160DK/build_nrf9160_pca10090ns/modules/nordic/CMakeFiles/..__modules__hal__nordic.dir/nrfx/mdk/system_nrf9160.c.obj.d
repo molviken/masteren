@@ -1,0 +1,23 @@
+modules/nordic/CMakeFiles/..__modules__hal__nordic.dir/nrfx/mdk/system_nrf9160.c.obj: \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/system_nrf9160.c \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/hello_world/build_nrf9160_pca10090ns/zephyr/include/generated/autoconf.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/zephyr/include/toolchain/zephyr_stdint.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/zephyr/lib/libc/minimal/include/stdint.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/zephyr/lib/libc/minimal/include/stdbool.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf9160.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/zephyr/ext/hal/cmsis/Core/Include/core_cm33.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/zephyr/ext/hal/cmsis/Core/Include/cmsis_version.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/zephyr/ext/hal/cmsis/Core/Include/cmsis_compiler.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/zephyr/ext/hal/cmsis/Core/Include/cmsis_gcc.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/zephyr/ext/hal/cmsis/Core/Include/mpu_armv8.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/system_nrf9160.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/system_nrf.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf9160_bitfields.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf9160_name_change.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/compiler_abstraction.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf_erratas.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf51_erratas.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf52_erratas.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf53_erratas.h \
+ C:/Users/oyste/Documents/Masteroppgave/Kode/SDK/ncs/modules/hal/nordic/nrfx/mdk/nrf91_erratas.h
