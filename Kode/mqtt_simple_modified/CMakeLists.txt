@@ -13,11 +13,3 @@ project(mqtt-simple)
 # NORDIC SDK APP START
 target_sources(app PRIVATE src/main.c)
 # NORDIC SDK APP END
-zephyr_include_directories(src)
-zephyr_include_directories(include)
-
-# Include application events and configuration headers
-zephyr_library_include_directories(include)
-
-# Application sources
-add_subdirectory(src/custom_src_files)

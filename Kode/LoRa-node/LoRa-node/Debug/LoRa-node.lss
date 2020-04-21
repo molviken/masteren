@@ -23,11 +23,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000374  00000000  00000000  000049ec  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000c1a  00000000  00000000  00004d60  2**0
+ 10 .debug_str    00000c5b  00000000  00000000  00004d60  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000a83  00000000  00000000  0000597a  2**0
+ 11 .debug_loc    00000a83  00000000  00000000  000059bb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000118  00000000  00000000  000063fd  2**0
+ 12 .debug_ranges 00000118  00000000  00000000  0000643e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -241,12 +241,6 @@ void FSM_run(){
      272:	dd cf       	rjmp	.-70     	; 0x22e <FSM_run+0x2>
 
 00000274 <i2c_init>:
-          1 failed to access device
-*************************************************************************/
-unsigned char i2c_rep_start(unsigned char address){
-    return i2c_start( address );
-
-}
      274:	10 92 d9 00 	sts	0x00D9, r1	; 0x8000d9 <__DATA_REGION_ORIGIN__+0x79>
      278:	80 e2       	ldi	r24, 0x20	; 32
      27a:	80 93 d8 00 	sts	0x00D8, r24	; 0x8000d8 <__DATA_REGION_ORIGIN__+0x78>
@@ -356,89 +350,39 @@ unsigned char i2c_rep_start(unsigned char address){
      356:	08 95       	ret
 
 00000358 <i2c_stop>:
-/*************************************************************************
- Terminates the data transfer and releases the I2C bus
-*************************************************************************/
-void i2c_stop(void){
-    /* send stop condition */
-	TWCR1 = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
      358:	84 e9       	ldi	r24, 0x94	; 148
      35a:	80 93 dc 00 	sts	0x00DC, r24	; 0x8000dc <__DATA_REGION_ORIGIN__+0x7c>
-	
-	// wait until stop condition is executed and bus released
-	i2c_waitStop(); 
      35e:	0e 94 62 01 	call	0x2c4	; 0x2c4 <i2c_waitStop>
      362:	08 95       	ret
 
 00000364 <i2c_write>:
-*************************************************************************/
-unsigned char i2c_write( unsigned char data ){	
-    uint8_t   twst;
-    
-	// send data to the previously addressed device
-	TWDR1 = data;
      364:	80 93 db 00 	sts	0x00DB, r24	; 0x8000db <__DATA_REGION_ORIGIN__+0x7b>
-	TWCR1 = (1<<TWINT) | (1<<TWEN);
      368:	84 e8       	ldi	r24, 0x84	; 132
      36a:	80 93 dc 00 	sts	0x00DC, r24	; 0x8000dc <__DATA_REGION_ORIGIN__+0x7c>
-
-	// wait until transmission completed
-	i2c_sync();
      36e:	0e 94 40 01 	call	0x280	; 0x280 <i2c_sync>
-
-	// check value of TWI Status Register. Mask prescaler bits
-	twst = TW_STATUS & 0xF8;
      372:	90 91 d9 00 	lds	r25, 0x00D9	; 0x8000d9 <__DATA_REGION_ORIGIN__+0x79>
      376:	98 7f       	andi	r25, 0xF8	; 248
      378:	81 e0       	ldi	r24, 0x01	; 1
      37a:	98 32       	cpi	r25, 0x28	; 40
      37c:	09 f4       	brne	.+2      	; 0x380 <i2c_write+0x1c>
      37e:	80 e0       	ldi	r24, 0x00	; 0
-	if( twst != TW_MT_DATA_ACK) return 1;
-	return 0;
-
-}
      380:	08 95       	ret
 
 00000382 <i2c_readAck>:
- Read one byte from the I2C device, request more data from device 
- 
- Return:  byte read from I2C device
-*************************************************************************/
-unsigned char i2c_readAck(void){
-	TWCR1 = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
      382:	84 ec       	ldi	r24, 0xC4	; 196
      384:	80 93 dc 00 	sts	0x00DC, r24	; 0x8000dc <__DATA_REGION_ORIGIN__+0x7c>
-	i2c_sync();    
      388:	0e 94 40 01 	call	0x280	; 0x280 <i2c_sync>
-	return TWDR1;
      38c:	80 91 db 00 	lds	r24, 0x00DB	; 0x8000db <__DATA_REGION_ORIGIN__+0x7b>
-}
      390:	08 95       	ret
 
 00000392 <i2c_readNak>:
- Read one byte from the I2C device, read is followed by a stop condition 
- 
- Return:  byte read from I2C device
-*************************************************************************/
-unsigned char i2c_readNak(void){
-	TWCR1 = (1<<TWINT) | (1<<TWEN);
      392:	84 e8       	ldi	r24, 0x84	; 132
      394:	80 93 dc 00 	sts	0x00DC, r24	; 0x8000dc <__DATA_REGION_ORIGIN__+0x7c>
-	i2c_sync(); 
      398:	0e 94 40 01 	call	0x280	; 0x280 <i2c_sync>
-	return TWDR1;
      39c:	80 91 db 00 	lds	r24, 0x00DB	; 0x8000db <__DATA_REGION_ORIGIN__+0x7b>
-}
      3a0:	08 95       	ret
 
 000003a2 <i2c_read2ByteRegister>:
-  
-  Input:    device address, register address, buffer for storage
-  Return:   0 write successful 
-            1 write failed
-*************************************************************************/
-uint8_t i2c_read2ByteRegister(uint8_t adr, uint8_t regAddr, uint8_t *data){
      3a2:	ff 92       	push	r15
      3a4:	0f 93       	push	r16
      3a6:	1f 93       	push	r17
@@ -447,11 +391,8 @@ uint8_t i2c_read2ByteRegister(uint8_t adr, uint8_t regAddr, uint8_t *data){
      3ac:	d8 2f       	mov	r29, r24
      3ae:	f6 2e       	mov	r15, r22
      3b0:	8a 01       	movw	r16, r20
-	uint8_t error = 0;
-	error += i2c_start(adr | I2C_WRITE);
      3b2:	0e 94 84 01 	call	0x308	; 0x308 <i2c_start>
      3b6:	c8 2f       	mov	r28, r24
-	error += i2c_write(regAddr);
      3b8:	8f 2d       	mov	r24, r15
      3ba:	0e 94 b2 01 	call	0x364	; 0x364 <i2c_write>
      3be:	c8 0f       	add	r28, r24
@@ -465,31 +406,21 @@ uint8_t i2c_read2ByteRegister(uint8_t adr, uint8_t regAddr, uint8_t *data){
      3c2:	8a 95       	dec	r24
      3c4:	f1 f7       	brne	.-4      	; 0x3c2 <i2c_read2ByteRegister+0x20>
      3c6:	00 c0       	rjmp	.+0      	; 0x3c8 <i2c_read2ByteRegister+0x26>
-	_delay_us(10);
-	//read data
-	error += i2c_start(adr | I2C_READ);
      3c8:	8d 2f       	mov	r24, r29
      3ca:	81 60       	ori	r24, 0x01	; 1
      3cc:	0e 94 84 01 	call	0x308	; 0x308 <i2c_start>
      3d0:	c8 0f       	add	r28, r24
-	data[1] = i2c_readAck();
      3d2:	0e 94 c1 01 	call	0x382	; 0x382 <i2c_readAck>
      3d6:	f8 01       	movw	r30, r16
      3d8:	81 83       	std	Z+1, r24	; 0x01
-	data[0] = i2c_readNak();
      3da:	0e 94 c9 01 	call	0x392	; 0x392 <i2c_readNak>
      3de:	f8 01       	movw	r30, r16
      3e0:	80 83       	st	Z, r24
-	i2c_stop();
      3e2:	0e 94 ac 01 	call	0x358	; 0x358 <i2c_stop>
      3e6:	81 e0       	ldi	r24, 0x01	; 1
      3e8:	c1 11       	cpse	r28, r1
      3ea:	01 c0       	rjmp	.+2      	; 0x3ee <i2c_read2ByteRegister+0x4c>
      3ec:	80 e0       	ldi	r24, 0x00	; 0
-	
-	if (error) return 1;
-	else return 0;
-}
      3ee:	df 91       	pop	r29
      3f0:	cf 91       	pop	r28
      3f2:	1f 91       	pop	r17
@@ -498,12 +429,6 @@ uint8_t i2c_read2ByteRegister(uint8_t adr, uint8_t regAddr, uint8_t *data){
      3f8:	08 95       	ret
 
 000003fa <i2c_write2ByteRegister>:
-  
-  Input:    device address, register address, bytes to be transfered 
-  Return:   0 write successful
-			1 write failed
-*************************************************************************/
-uint8_t i2c_write2ByteRegister(uint8_t adr, uint8_t regAddr, uint16_t data){
      3fa:	0f 93       	push	r16
      3fc:	1f 93       	push	r17
      3fe:	cf 93       	push	r28
@@ -511,11 +436,8 @@ uint8_t i2c_write2ByteRegister(uint8_t adr, uint8_t regAddr, uint16_t data){
      402:	06 2f       	mov	r16, r22
      404:	d4 2f       	mov	r29, r20
      406:	15 2f       	mov	r17, r21
-	uint8_t error = 0;
-	error += i2c_start(adr | I2C_WRITE);
      408:	0e 94 84 01 	call	0x308	; 0x308 <i2c_start>
      40c:	c8 2f       	mov	r28, r24
-	error += i2c_write(regAddr);
      40e:	80 2f       	mov	r24, r16
      410:	0e 94 b2 01 	call	0x364	; 0x364 <i2c_write>
      414:	c8 0f       	add	r28, r24
@@ -523,23 +445,17 @@ uint8_t i2c_write2ByteRegister(uint8_t adr, uint8_t regAddr, uint16_t data){
      418:	8a 95       	dec	r24
      41a:	f1 f7       	brne	.-4      	; 0x418 <__LOCK_REGION_LENGTH__+0x18>
      41c:	00 c0       	rjmp	.+0      	; 0x41e <__LOCK_REGION_LENGTH__+0x1e>
-	_delay_us(10);
-	error += i2c_write((uint8_t)(data >> 8));
      41e:	81 2f       	mov	r24, r17
      420:	0e 94 b2 01 	call	0x364	; 0x364 <i2c_write>
      424:	c8 0f       	add	r28, r24
-	error += i2c_write((uint8_t)(data & 0xFF));
      426:	8d 2f       	mov	r24, r29
      428:	0e 94 b2 01 	call	0x364	; 0x364 <i2c_write>
      42c:	c8 0f       	add	r28, r24
-	i2c_stop();
      42e:	0e 94 ac 01 	call	0x358	; 0x358 <i2c_stop>
      432:	81 e0       	ldi	r24, 0x01	; 1
      434:	c1 11       	cpse	r28, r1
      436:	01 c0       	rjmp	.+2      	; 0x43a <__LOCK_REGION_LENGTH__+0x3a>
      438:	80 e0       	ldi	r24, 0x00	; 0
-	if (error) return 1;
-	else return 0;
      43a:	df 91       	pop	r29
      43c:	cf 91       	pop	r28
      43e:	1f 91       	pop	r17
@@ -547,12 +463,6 @@ uint8_t i2c_write2ByteRegister(uint8_t adr, uint8_t regAddr, uint16_t data){
      442:	08 95       	ret
 
 00000444 <INA219_readCalibrationReg>:
-	printf("ekte total: %u\n", total);
-	printf("ekte total2: %u\n", total*11/1000);
-	current = (float)total;
-	printf("fake total: %f\n", current);
-	return total;
-}
      444:	1f 93       	push	r17
      446:	cf 93       	push	r28
      448:	df 93       	push	r29
@@ -657,56 +567,33 @@ uint8_t i2c_write2ByteRegister(uint8_t adr, uint8_t regAddr, uint16_t data){
      512:	08 95       	ret
 
 00000514 <INA219_init>:
-
-
-uint8_t INA219_init(){
      514:	cf 93       	push	r28
-	if (INA219_setCalibration_16V_400mA()) {
      516:	0e 94 76 02 	call	0x4ec	; 0x4ec <INA219_setCalibration_16V_400mA>
      51a:	c8 2f       	mov	r28, r24
      51c:	88 23       	and	r24, r24
      51e:	31 f0       	breq	.+12     	; 0x52c <INA219_init+0x18>
-		printf("Setting calibration failed...\n");
      520:	85 e8       	ldi	r24, 0x85	; 133
      522:	91 e0       	ldi	r25, 0x01	; 1
      524:	0e 94 bb 07 	call	0xf76	; 0xf76 <puts>
-		return 1;
      528:	c1 e0       	ldi	r28, 0x01	; 1
      52a:	04 c0       	rjmp	.+8      	; 0x534 <INA219_init+0x20>
-	}
-	else{
-		INA219_readCalibrationReg();
      52c:	0e 94 22 02 	call	0x444	; 0x444 <INA219_readCalibrationReg>
-		INA219_readConfigReg();
      530:	0e 94 4c 02 	call	0x498	; 0x498 <INA219_readConfigReg>
-		return 0;
-	}
      534:	8c 2f       	mov	r24, r28
      536:	cf 91       	pop	r28
      538:	08 95       	ret
 
 0000053a <USART_init2>:
-}
-void USART_init2(){
-	// Calculate ubbr:
-	unsigned int ubrr =(F_CPU / (16*DEBUG_BAUD))-1U;
-	/*Set baud rate */
-	UBRR2H = (unsigned char)(ubrr>>8);
      53a:	10 92 d5 00 	sts	0x00D5, r1	; 0x8000d5 <__DATA_REGION_ORIGIN__+0x75>
-	UBRR2L = (unsigned char)ubrr;
      53e:	83 e3       	ldi	r24, 0x33	; 51
      540:	80 93 d4 00 	sts	0x00D4, r24	; 0x8000d4 <__DATA_REGION_ORIGIN__+0x74>
-	/* Enable receiver and transmitter */
-	UCSR2B = (1<<RXEN)|(1<<TXEN);
      544:	88 e1       	ldi	r24, 0x18	; 24
      546:	80 93 d1 00 	sts	0x00D1, r24	; 0x8000d1 <__DATA_REGION_ORIGIN__+0x71>
-	UCSR2C |= (3<<UCSZ0);	/* Set frame format:  1stop bit, 8data*/
      54a:	e2 ed       	ldi	r30, 0xD2	; 210
      54c:	f0 e0       	ldi	r31, 0x00	; 0
      54e:	80 81       	ld	r24, Z
      550:	86 60       	ori	r24, 0x06	; 6
      552:	80 83       	st	Z, r24
-	stdout = &mystdout;
      554:	80 e0       	ldi	r24, 0x00	; 0
      556:	91 e0       	ldi	r25, 0x01	; 1
      558:	90 93 a8 01 	sts	0x01A8, r25	; 0x8001a8 <__iob+0x3>
@@ -714,40 +601,23 @@ void USART_init2(){
      560:	08 95       	ret
 
 00000562 <USART_transmit2>:
-}
-void  USART_transmit2( uint8_t data ){
-	/* Wait for empty transmit buffer:*/
-	while ( !( UCSR2A & (1<<UDRE)));
      562:	e0 ed       	ldi	r30, 0xD0	; 208
      564:	f0 e0       	ldi	r31, 0x00	; 0
      566:	90 81       	ld	r25, Z
      568:	95 ff       	sbrs	r25, 5
      56a:	fd cf       	rjmp	.-6      	; 0x566 <USART_transmit2+0x4>
-	/* Put data into buffer:*/
-	UDR2 = data;
      56c:	80 93 d6 00 	sts	0x00D6, r24	; 0x8000d6 <__DATA_REGION_ORIGIN__+0x76>
      570:	08 95       	ret
 
 00000572 <USART_TRANSMIT_printf>:
-#endif
-#ifndef DEBUG_BAUD
-	#define DEBUG_BAUD 9600UL
-#endif
-
-int USART_TRANSMIT_printf(char var, FILE *stream) {
      572:	cf 93       	push	r28
      574:	c8 2f       	mov	r28, r24
-	// translate \n to \r for br@y++ terminal
-	if (var == '\n') USART_transmit2('\r');
      576:	8a 30       	cpi	r24, 0x0A	; 10
      578:	19 f4       	brne	.+6      	; 0x580 <USART_TRANSMIT_printf+0xe>
      57a:	8d e0       	ldi	r24, 0x0D	; 13
      57c:	0e 94 b1 02 	call	0x562	; 0x562 <USART_transmit2>
-	USART_transmit2(var);
      580:	8c 2f       	mov	r24, r28
      582:	0e 94 b1 02 	call	0x562	; 0x562 <USART_transmit2>
-	return 0;
-}
      586:	80 e0       	ldi	r24, 0x00	; 0
      588:	90 e0       	ldi	r25, 0x00	; 0
      58a:	cf 91       	pop	r28

@@ -815,18 +815,18 @@ END GROUP
  .debug_frame   0x000001c0      0x100 src/INA219.o
  .debug_frame   0x000002c0       0xb4 src/USART.o
 
-.debug_str      0x00000000      0xc1a
+.debug_str      0x00000000      0xc5b
  *(.debug_str)
  .debug_str     0x00000000      0x35a D:/Programs/AS7/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega324pb/avr5/crtatmega324pb.o
- .debug_str     0x0000035a      0x1ee main.o
-                                0x22c (size before relaxing)
- .debug_str     0x00000548       0x9f src/FSM.o
-                                0x233 (size before relaxing)
- .debug_str     0x000005e7       0xea src/i2c_master.o
+ .debug_str     0x0000035a      0x1d7 main.o
+                                0x215 (size before relaxing)
+ .debug_str     0x00000531       0x9f src/FSM.o
+                                0x21c (size before relaxing)
+ .debug_str     0x000005d0      0x142 src/i2c_master.o
                                 0x2b2 (size before relaxing)
- .debug_str     0x000006d1      0x48d src/INA219.o
+ .debug_str     0x00000712      0x48d src/INA219.o
                                 0x68d (size before relaxing)
- .debug_str     0x00000b5e       0xbc src/USART.o
+ .debug_str     0x00000b9f       0xbc src/USART.o
                                 0x24b (size before relaxing)
 
 .debug_loc      0x00000000      0xa83
