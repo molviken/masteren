@@ -4,6 +4,10 @@
 
 main.c
 
+src\adc.c
+
+src\board.c
+
 src\Debug.c
 
 src\FSM.c

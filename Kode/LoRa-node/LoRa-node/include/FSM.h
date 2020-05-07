@@ -13,10 +13,8 @@
 
 enum States{
 	ST_INIT,
-	ST_IDLE,
 	ST_SLEEP,
-	ST_ACTIVE,
-	ST_TRANSMISSION
+	ST_ACTIVE
 };
 
 
@@ -24,6 +22,6 @@ enum States{
 
 int FSM_init();
 void FSM_run();
-
+void FSM_system_init(void);
 
 #endif /* FSM_H_ */

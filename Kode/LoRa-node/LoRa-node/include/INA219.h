@@ -45,7 +45,7 @@ enum {
 	INA219_CONFIG_BADCRES_9BIT       =       (0x0000),  // 9-bit bus res = 0..511
 	INA219_CONFIG_BADCRES_10BIT      =       (0x0080),  // 10-bit bus res = 0..1023
 	INA219_CONFIG_BADCRES_11BIT      =       (0x0100),  // 11-bit bus res = 0..2047
-	INA219_CONFIG_BADCRES_12BIT       =      (0x0180),  // 12-bit bus res = 0..4097
+	INA219_CONFIG_BADCRES_12BIT       =      (0x0180),  // 12-bit bus res = 0..4095
 };
 
 /*		values for shunt ADC resolution		*/
@@ -78,16 +78,17 @@ enum {
 /*	Structure to store address and settings of INA219 current/power monitor IC	*/
 typedef struct
 {
-	uint8_t ina219_i2caddr;
-	uint32_t ina219_calValue;
-	uint32_t ina219_currentDivider_mA;
+	uint16_t bus_voltage, current;
+	uint32_t bus_voltage_avg, current_avg;
 
-}ina219;
+}ina219_t;
+
+
 
 uint8_t INA219_setCalibration_16V_400mA();
 int16_t INA219_readBusVoltageReg();
-uint8_t INA219_readShuntVoltageReg();
-uint16_t INA219_readCurrentReg(float current);
+uint16_t INA219_readShuntVoltageReg();
+uint16_t INA219_readCurrentReg();
 uint8_t INA219_init();
 
 #endif

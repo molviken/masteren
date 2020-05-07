@@ -42,6 +42,8 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../main.c \
+../src/adc.c \
+../src/board.c \
 ../src/Debug.c \
 ../src/FSM.c \
 ../src/i2c_master.c \
@@ -61,6 +63,8 @@ ASM_SRCS +=
 
 OBJS +=  \
 main.o \
+src/adc.o \
+src/board.o \
 src/Debug.o \
 src/FSM.o \
 src/i2c_master.o \
@@ -73,6 +77,8 @@ utils/util_functions.o
 
 OBJS_AS_ARGS +=  \
 main.o \
+src/adc.o \
+src/board.o \
 src/Debug.o \
 src/FSM.o \
 src/i2c_master.o \
@@ -85,6 +91,8 @@ utils/util_functions.o
 
 C_DEPS +=  \
 main.d \
+src/adc.d \
+src/board.d \
 src/Debug.d \
 src/FSM.d \
 src/i2c_master.d \
@@ -97,6 +105,8 @@ utils/util_functions.d
 
 C_DEPS_AS_ARGS +=  \
 main.d \
+src/adc.d \
+src/board.d \
 src/Debug.d \
 src/FSM.d \
 src/i2c_master.d \
@@ -122,6 +132,20 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 ./main.o: .././main.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\Programs\AS7\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=8000000UL -DSCL_CLOCK=100000L  -I"D:\Programs\AS7\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I"../include" -I"../Config" -I"../utils" -I"../utils/assembler" -I"C:\Users\oyste\Documents\Masteroppgave\Kode\Masterkoden\Atmel\LoRa-node\LoRa-node"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324pb -B "D:\Programs\AS7\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega324pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+src/adc.o: ../src/adc.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\Programs\AS7\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=8000000UL -DSCL_CLOCK=100000L  -I"D:\Programs\AS7\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I"../include" -I"../Config" -I"../utils" -I"../utils/assembler" -I"C:\Users\oyste\Documents\Masteroppgave\Kode\Masterkoden\Atmel\LoRa-node\LoRa-node"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324pb -B "D:\Programs\AS7\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega324pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+src/board.o: ../src/board.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)D:\Programs\AS7\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=8000000UL -DSCL_CLOCK=100000L  -I"D:\Programs\AS7\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I"../include" -I"../Config" -I"../utils" -I"../utils/assembler" -I"C:\Users\oyste\Documents\Masteroppgave\Kode\Masterkoden\Atmel\LoRa-node\LoRa-node"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324pb -B "D:\Programs\AS7\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega324pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

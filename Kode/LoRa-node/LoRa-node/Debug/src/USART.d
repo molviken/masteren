@@ -13,7 +13,9 @@ src/USART.d src/USART.o: ../src/USART.c ../include/USART.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
- d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h
+ d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
+ ../Config/config.h \
+ d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h
 
 ../include/USART.h:
 
@@ -46,3 +48,7 @@ d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\
 d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
 
 d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h:
+
+../Config/config.h:
+
+d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:

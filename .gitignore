@@ -4,8 +4,12 @@ Laboppsett/
 altium-library/
 stuff/
 Altium/altium-library/
+Prosjektoppgave_dropbox/
+RIOT-master/
+LoRa_click-master/
 Kode/I2C-master-lib-master/
 Kode/LTE-node/build
+Kode/tobias/
 Kode/LTE-node/build_nrf9160_pca10090/
 Kode/LTE-node/build_nrf9160_pca10090ns/*
 !Kode/LTE-node/build_nrf9160_pca10090ns/zephyr
@@ -14,6 +18,7 @@ Kode/mqtt_simple_modified/build_nrf9160_pca10090/
 Kode/mqtt_simple_modified/build_nrf9160_pca10090ns/*
 !Kode/mqtt_simple_modified/build_nrf9160_pca10090ns/zephyr
 Kode/mqtt_simple_modified/build_nrf9160_pca10090ns/zephyr/*
+
 
 # Files
 !Kode/LTE-node/build_nrf9160_pca10090ns/zephyr/merged.hex

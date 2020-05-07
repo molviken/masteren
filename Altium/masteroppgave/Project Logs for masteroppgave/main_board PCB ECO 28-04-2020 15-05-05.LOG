@@ -1,0 +1,10 @@
+Change Component Designator: OldDesignator=MCU1 NewDesignator=U9
+Change Component Designator: OldDesignator=T NewDesignator=T1
+Change component parameters: Designator = "R2" ("R2"); Footprint = "R0402"; UniqueID = "\TXKWTXCI" ("\TXKWTXCI")
+Change component parameters (AddParameter): Name = "Value"; Value = "0.18 ohm"; VariantName = "[No Variations]"
+Change Net Name : Old Net Name=NetMCU1_15 New Net Name=NetP3_3
+Change Net Name : Old Net Name=NetMCU1_16 New Net Name=NetP3_2
+Change Net Name : Old Net Name=NetMCU1_30 New Net Name=NetP2_5
+Change Net Name : Old Net Name=NetMCU1_31 New Net Name=NetP2_4
+Change Net Name : Old Net Name=NetMCU1_36 New Net Name=NetP2_2
+Change Net Name : Old Net Name=NetMCU1_37 New Net Name=NetP2_1

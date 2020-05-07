@@ -11,11 +11,13 @@
 #include <net/mqtt.h>
 #include <net/socket.h>
 #include <lte_lc.h>
+#include <inttypes.h>
 #if defined(CONFIG_LWM2M_CARRIER)
 #include <lwm2m_carrier.h>
 #endif
 
 u8_t uart_buf[1024];
+u8_t mqtt_rec_flag = 0;
 
 /* Buffers for MQTT client. */
 static u8_t rx_buffer[CONFIG_MQTT_MESSAGE_BUFFER_SIZE];
@@ -181,7 +183,7 @@ static int publish_get_payload(struct mqtt_client *c, size_t length)
 
 	return 0;
 }
-
+u8_t mqtt_rec_msg[128];
 /**@brief MQTT client event handler
  */
 void mqtt_evt_handler(struct mqtt_client *const c,
@@ -217,9 +219,16 @@ void mqtt_evt_handler(struct mqtt_client *const c,
 		if (err >= 0) {
 			data_print("Received: ", payload_buf,
 				p->message.payload.len);
+			mqtt_rec_flag = 1;
+                        for (int i = 0; i<p->message.payload.len+1; i++){
+				mqtt_rec_msg[i] = payload_buf[i];
+                                if (i == p->message.payload.len) {
+					mqtt_rec_msg[i] = 0x0A;
+				}
+			}
 			/* Echo back received data */
-			data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE,
-				payload_buf, p->message.payload.len);
+			//data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE,
+				//payload_buf, p->message.payload.len);
 		} else {
 			printk("mqtt_read_publish_payload: Failed! %d\n", err);
 			printk("Disconnecting MQTT client...\n");
@@ -328,8 +337,12 @@ static void client_init(struct mqtt_client *client)
 	client->evt_cb = mqtt_evt_handler;
 	client->client_id.utf8 = (u8_t *)CONFIG_MQTT_CLIENT_ID;
 	client->client_id.size = strlen(CONFIG_MQTT_CLIENT_ID);
-	client->password = NULL;
-	client->user_name = NULL;
+        client->password = NULL;
+        client->user_name = NULL;
+	/*client->password->utf8 = (u8_t *)CONFIG_MQTT_BROKER_PASSWORD;
+	client->password->size = strlen(CONFIG_MQTT_BROKER_PASSWORD);
+	client->user_name->utf8 = (u8_t *)CONFIG_MQTT_BROKER_USERNAME;
+	client->user_name->size = strlen(CONFIG_MQTT_BROKER_USERNAME);*/
 	client->protocol_version = MQTT_VERSION_3_1_1;
 
 	/* MQTT buffers configuration */
@@ -395,11 +408,27 @@ static void modem_configure(void)
 void pub_uart_mqtt(struct k_work *item)
 {
     struct work_data *wrk_data = CONTAINER_OF(item, struct work_data, work);
-    printk("Data: %s\n", wrk_data->data);
+    //printk("Data: %s\n", wrk_data->data);
     printk("Length of data:%d\n",wrk_data->data_len);
     data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE, wrk_data->data, wrk_data->data_len);
     //printk("Got error on device %s\n", the_device->name);
 }
+
+//static void uart_cb2(struct device *x)
+//{
+//	uart_irq_update(x);
+//	int data_length = 0;
+//	static int pos, serial_in_count, tot_len = 0;
+//	
+//	if (uart_irq_rx_ready(x)) {
+//		data_length = uart_fifo_read(x, uart_buf, sizeof(uart_buf));
+//		tot_len = tot_len + data_length;
+//                memcpy(&w_data[serial_in_count].data[pos], uart_buf, data_length);
+//
+//	}
+//
+//        printk("%s", uart_buf);
+//}
 
 void uart_cb(struct device *x)
 {
@@ -412,10 +441,10 @@ void uart_cb(struct device *x)
                 tot_len = tot_len + data_length;
 
                 memcpy(&w_data[serial_in_count].data[pos], uart_buf, data_length);
-                printk("Position is: %d\n", pos);
+                //printk("Position is: %d\n", pos);
                 //Check if last char is 'LF'
                 if(uart_buf[data_length-1] == 10){
-                      printk("last char is 'LF', call k_work_submit(), word number %d \n", serial_in_count);
+                      //printk("last char is 'LF', call k_work_submit(), word number %d \n", serial_in_count);
                       w_data[serial_in_count].data_len = tot_len - 1;
                       k_work_submit(&w_data[serial_in_count].work);
 
@@ -428,15 +457,16 @@ void uart_cb(struct device *x)
                           serial_in_count=0;
                       }
                 }else{
-                      printk("last char is: %d\n", uart_buf[data_length-1]);
+                      //printk("last char is: %d\n", uart_buf[data_length-1]);
                       pos = pos + data_length;
                 }
 	}
-	//printk("%s", uart_buf);
+	printk("%s", uart_buf);
 }
 
 void main(void)
 {
+	bool start = true;
 	int err;
 
 	printk("The MQTT simple modified sample started\n");
@@ -446,11 +476,11 @@ void main(void)
         }
 
 
-	struct device *uart = device_get_binding("UART_0");
+	struct device *uart = device_get_binding("UART_2");
 	uart_irq_callback_set(uart, uart_cb);
 	uart_irq_rx_enable(uart);
 
-
+	
 	modem_configure();
 
 	client_init(&client);
@@ -497,7 +527,15 @@ void main(void)
 			printk("POLLNVAL\n");
 			break;
 		}
-                //data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE, "test", strlen("test"));
+                if (start){
+			data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE, "started", strlen("started"));
+			start = false;
+		}
+                if (mqtt_rec_flag){
+			printk("sending msg: %s", mqtt_rec_msg);
+			mqtt_rec_flag = 0;
+			uart_fifo_fill(uart, mqtt_rec_msg, strlen(mqtt_rec_msg));
+		}
 	}
 
 	printk("Disconnecting MQTT client...\n");

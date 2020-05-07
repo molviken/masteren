@@ -4,15 +4,13 @@
 #include <stdlib.h>
 
 
-/*Uart for debug:*/
 
 void USART_init();
-void USART_transmit( uint8_t data );
-unsigned char USART_receive(void);
-void USART_putstring(char *string);
+void USART_transmit0( uint8_t data );
+unsigned char USART_receive0(void);
+void USART_putstring0(char *string);
 
 int USART_TRANSMIT_printf(char var, FILE *stream);
-
-void USART_init2();
-void USART_transmit2( uint8_t data );
+char * USART_receiveString2(void);
 void  USART_putstring2(char *string);
+unsigned char USART_receive2(void);

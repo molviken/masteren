@@ -1,9 +1,10 @@
 utils/util_functions.d utils/util_functions.o: ../utils/util_functions.c \
- ../utils/util_functions.h \
- d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
- d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
+ ../utils/util_functions.h ../include/board.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h \
+ ../include/INA219.h \
+ d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
+ d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  ../include/USART.h \
@@ -15,17 +16,22 @@ utils/util_functions.d utils/util_functions.o: ../utils/util_functions.c \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
- d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h
+ d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
+ d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h
 
 ../utils/util_functions.h:
 
-d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
-
-d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h:
+../include/board.h:
 
 d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h:
 
 d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h:
+
+../include/INA219.h:
+
+d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
+
+d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h:
 
 d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdarg.h:
 
@@ -50,3 +56,5 @@ d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h:
 d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 
 d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:
+
+d:\programs\as7\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:

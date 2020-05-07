@@ -42,22 +42,20 @@ uint8_t INA219_setCalibration_16V_400mA() {
 int16_t INA219_readBusVoltageReg(){
 	uint8_t value[2];
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_BUSVOLTAGE, value)) return -1;
-	return ((value[1] << 8) | value[0]);
+	uint16_t total = ((value[1] << 8) | value[0])>>3;
+	return total;
 }
 
-uint8_t INA219_readShuntVoltageReg(){ // Not operational
+uint16_t INA219_readShuntVoltageReg(){ // Not operational
 	uint8_t value[2];
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_SHUNTVOLTAGE, value)) return 1;
 	return ((value[1] << 8) | value[0]);
 }
-uint16_t INA219_readCurrentReg(float current){
+uint16_t INA219_readCurrentReg(){
 	uint8_t value[2];
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_CURRENT, value)) return -1;
 	uint16_t total = (value[1] << 8) | value[0];
-	printf("ekte total: %u\n", total);
-	printf("ekte total2: %u\n", total*11/1000);
-	current = (float)total;
-	printf("fake total: %f\n", current);
+	if(total>0xAFC8) return 0x00;  // Remove possibility of corruption with a bug where total is above 0xFFAE with no connected source.	
 	return total;
 }
 
