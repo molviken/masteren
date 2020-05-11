@@ -10,7 +10,7 @@
 #include <util/delay.h>
 #include <config.h>
 #include "timers.h"
-
+#include <RN2483A.h>
 
 void timers_init(){
 	#ifdef TIMER1
@@ -41,10 +41,15 @@ void enter_powerSave(){
 	#ifdef USART2_START_COND_INTERRUPT
 	UCSR2D |= (1<<SFDE) | (0<<RXSIE);			// Enable start condition detection with interrupt on RXCIE
 	#endif
+	
 	set_sleep_mode(SLEEP_MODE_PWR_SAVE);
 	sleep_mode();
 	_delay_ms(70);
+	
+	#ifdef USART2_START_COND_INTERRUPT
 	UCSR2D &= ~(1<<SFDE);						// Disable start condition detection while awake.
+	#endif
+	
 }
 
 

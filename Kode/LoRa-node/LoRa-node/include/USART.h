@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 
-
+void USART_flush0();
 void USART_init();
 void USART_transmit0( uint8_t data );
 unsigned char USART_receive0(void);

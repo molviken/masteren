@@ -12,5 +12,5 @@
 uint8_t* hex_decode(const char *in, size_t len, uint8_t *out, int start);
 uint16_t f2uflt16(float f);
 char *hex_encode(board_t board);
-
+void ascii_hex_decode(const char *in, size_t len, uint8_t *out, int start);
 #endif /* UTIL_FUNCTIONS_H_ */

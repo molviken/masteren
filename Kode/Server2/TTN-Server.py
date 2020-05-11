@@ -2,26 +2,36 @@ from ttn import HandlerClient
 import time
 import os, sys
 from datetime import timezone, datetime
-from base64 import b64decode
+from base64 import b64decode, b64encode
 from threading import Thread, Lock, Timer
 from logger import WriteMetaToFile
 import json
 import paho.mqtt.client as mqtt
 import config as cfg
 import math
+dev_eui1 = "0004A30B00EB9F66"
+app_eui = "70B3D57ED002E533"
 access_key = "ttn-account-v2.2aTBPpoyM78nhSgOKTkNE1At8OzeSUPxMCKlCbRC4jo"
 app_id = "lora-nodes"
 mqttc = mqtt.Client()
 Start_date = datetime.now()
 unixtime = Start_date.replace(tzinfo=timezone.utc).timestamp()
-print(format((int)(unixtime), 'x'))
+#unixtime_int = (int)(unixtime)
+#unixtime_str = str(unixtime_int)
+#unixtime_hex = format(unixtime_int, 'x')
+#print(unixtime_hex+"0a")
+#unixtime_b64 = b64encode(bytes(str(unixtime_hex), encoding="utf-8")).decode("utf-8")
+#print(unixtime_hex)
+#print(unixtime_b64)
+#print(format((int)(unixtime), 'd'))
 date = str(Start_date.day)+"." + str(Start_date.month)+"." + str(Start_date.year)
 mtx = Lock()
 killSelf2 = False
 killSelf = False
 inactive = False
 print("PID: "+str(os.getpid()))
-
+time_sync_cmd = "0a"
+dev_id_hex = "02"
 def inactivity_check():
     global mqttc
     global inactive, killSelf, killSelf2
@@ -35,29 +45,53 @@ def inactivity_check():
     mtx.release()
     Timer(600, inactivity_check).start()
 
+def timestamp_compare(payload):
+    print("isndie compare")
+    date_now = datetime.now()
+    unixtime = date_now.replace(tzinfo=timezone.utc).timestamp()
+    print((int)(unixtime))
+    date = str(date_now.day)+"." + str(date_now.month)+"." + str(date_now.year)
+    diff = False
+    ts = int(payload[4:12], 16)
+    print(ts)
+    if abs(ts-unixtime)>60:
+        print("correct the time")
+        diff = True
+    return diff
 
+def print_hello():
+    print("Hello")
 
 def uplink_callback(msg, client):
     global date, mtx, inactive
     print("Received uplink from ", msg.dev_id, datetime.now())
-    
+    payload = b64decode(msg.payload_raw).hex()
+    date_now = datetime.now()
+    test = date_now.replace(tzinfo=timezone.utc).timestamp()
+    unixtime_hexstr = format((int)(date_now.replace(tzinfo=timezone.utc).timestamp()), 'x')
+    msg_hex = dev_id_hex+time_sync_cmd+unixtime_hexstr
+    print(msg_hex)
+    msg_b64 = b64encode(bytes(msg_hex, encoding="utf-8")).decode("utf-8")
+    ts = int(payload[4:12], 16)
+    if abs(ts-unixtime)>60:
+        print("correct the time")
+        client.send(dev_id="sensor2",  pay=msg_b64, port=1, conf=False, sched="replace")
     mtx.acquire()
     inactive = False
-    WriteMetaToFile(msg.payload_raw)
+    WriteMetaToFile(payload, Start_date)
     mtx.release() 
-def mqtt_1(name):
-    print(name)
+def mqtt_1():
     handler = HandlerClient(app_id, access_key,discovery_address="discovery.thethings.network:1900")
     mqtt_application = handler.application()
     # using mqtt client
     mqtt_client = handler.data()
     mqtt_client.set_uplink_callback(uplink_callback)
     mqtt_client.connect()
-    print("Serving ", app_id)
-    my_app = mqtt_application.get()
-    print(my_app)
-    my_devices = mqtt_application.devices()
-    print(my_devices)
+    #print("Serving ", app_id)
+    #my_app = mqtt_application.get()
+    #print(my_app)
+    #my_devices = mqtt_application.devices()
+    #print(my_devices)
     while True:
         if killSelf:
             break
@@ -74,7 +108,8 @@ def on_message(mqttc, obj, msg):
     global inactive
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
     mtx.acquire()
-    date_str, clock_str = timestamp_parser(msg.payload)
+    unix, sync_needed = timestamp_compare(msg.payload)
+
     inactive = False
     WriteMetaToFile(msg.payload,Start_date, date_str, clock_str)
     mtx.release()
@@ -97,19 +132,6 @@ def mqtt_2():
     print("MQTT2 done")
 
 
-def timestamp_compare(payload):
-    diff = False
-    ts = int(payload[4:12], 16)
-    print(format((int)(ts), '08x'))
-    if abs(ts-unixtime)>20:
-        print("correct the time")
-        diff = True
-
-    full_date_str = datetime.utcfromtimestamp(ts)
-    date_str = full_date_str.strftime("%Y-%m-%d")
-    clock_str = full_date_str.strftime("%H:%M")
-    return diff, date_str, clock_str
-
 def payload_test(payload):
     global mqttc
     time_diff, date_str, clock_str = timestamp_compare(payload)
@@ -119,16 +141,14 @@ def payload_test(payload):
         
     #inactive = False
     #WriteMetaToFile(msg.payload,Start_date, date_str, clock_str)
-payload_ex = "06015eb17f35549998FFFF"
+
 if __name__ == "__main__":
     #inactivity_check()
-    #t1 = Thread(target=mqtt_1, args=('lora-node',))
+   # t1 = Thread(target=mqtt_1)
     #t2 = Thread(target=mqtt_2)
     #t1.start()
     #t2.start()
-    time.sleep(1)
-    #payload_test(payload_ex)
-    mqtt_2()
+    mqtt_1()
     print("Main thread")
     while True:
         if(killSelf):

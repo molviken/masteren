@@ -32,12 +32,12 @@ void board_gpio_init(void){
 	
 }
 
-void board_charge(int on){
-	if (on) clear_bit(PORTD, PORTD4);
+void board_charge(int off){
+	if (off) clear_bit(PORTD, PORTD4);
 	else set_bit(PORTD, PORTD4);
 }
 
-void board_setup(void){
+void board_setup(uint8_t *joined_err){
 	#ifndef LORA_NODE
 	USART_init();
 	#endif
@@ -47,7 +47,9 @@ void board_setup(void){
 	board_charge(0);
 	
 	#ifdef LORA_NODE
-	lora_init();
+		lora_init(joined_err);
+	#else
+		*joined_err = 0;
 	#endif
 
 	i2c_init();

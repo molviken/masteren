@@ -25,7 +25,7 @@ uint8_t INA219_readConfigReg(){
 
 uint8_t INA219_setCalibration_16V_400mA() {
 	uint8_t error = 0;
-	uint16_t ina219_calValue = 37236;  // Current LSB = 11uA per bit (1000/50 = 90.909)     Power LSB = 1mW per bit
+	uint16_t ina219_calValue = 27264;  // Current LSB = 15uA per bit (1000/50 = 90.909)     Power LSB = 1mW per bit
 
 	error += i2c_write2ByteRegister(INA219_ADDRESS, INA219_REG_CALIBRATION, ina219_calValue);
 	
@@ -41,8 +41,10 @@ uint8_t INA219_setCalibration_16V_400mA() {
 
 int16_t INA219_readBusVoltageReg(){
 	uint8_t value[2];
-	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_BUSVOLTAGE, value)) return -1;
+	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_BUSVOLTAGE, value)) return 0;
 	uint16_t total = ((value[1] << 8) | value[0])>>3;
+	printf("real vbus: %u\n", total);
+	if (total < 0x1000) return 0x00;
 	return total;
 }
 
@@ -53,9 +55,10 @@ uint16_t INA219_readShuntVoltageReg(){ // Not operational
 }
 uint16_t INA219_readCurrentReg(){
 	uint8_t value[2];
-	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_CURRENT, value)) return -1;
+	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_CURRENT, value)) return 0;
 	uint16_t total = (value[1] << 8) | value[0];
-	if(total>0xAFC8) return 0x00;  // Remove possibility of corruption with a bug where total is above 0xFFAE with no connected source.	
+	printf("real curr: %u\n", total);
+	if(total>0x8000) return 0x00;  // Remove possibility of corruption with a bug where total is above 0xFFAE with no connected source.
 	return total;
 }
 

@@ -20,7 +20,6 @@
 #define RESP_MAC_TX_OK								0x10
 #define RESP_MAC_RX_INC								0x11
 
-
 /***** Error responses *****/
 // Default for most
 #define ERR_INVALID_PARAM							0x01
@@ -48,8 +47,11 @@
 #define ERR_MAC_ERR									0x0D
 
 
-uint8_t downlink_pairs[100];
+#define DEV_NOT_JOINED								0x23
+#define LORA_RX_PAYLOAD_OFFSET						0x09
 
+uint8_t downlink_pairs[100];
+char downlink[100];
 
 uint8_t lora_test_command();
 uint8_t lora_reset();
@@ -57,12 +59,10 @@ uint8_t lora_reset();
 
 uint8_t lora_join_OTAA();
 void lora_join_ABP();
-uint8_t lora_init();
+uint8_t lora_init(uint8_t *joined_err);
 
 uint8_t lora_transmit(const char *payload);
-void lora_strip_downlink(const char*rx);
+void lora_strip_downlink(const char*downlink);
 void lora_assert_downlink();
-
-
 
 #endif /* RN2483A_H_ */

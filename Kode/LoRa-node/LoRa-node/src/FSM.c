@@ -17,91 +17,110 @@
 #include <board.h>
 #include <config.h>
 #include <util_functions.h>
-
+#include <string.h>
 
 #include "FSM.h"
 
+#define BOARD_CHARGE_OFF 1
+#define BOARD_CHARGE_ON 0
 
 
-enum States currentState = ST_INIT;
+States nextState = ST_INIT;
 
 static volatile uint8_t wake_up_flag = 0;
-static volatile uint32_t current_time;
 static uint8_t frame_counter = 0;
 static volatile int rec_flag = 0;
-//static void FSM_system_init(void);
+static void FSM_system_init(uint8_t *joined_flag);
 
-void FSM_system_init(void){
-	
-	board_setup();
-	puts("hi");
+void FSM_system_init(uint8_t *joined_flag){
+	board_setup(joined_flag);
 	#ifdef DEBUG_M
 	puts("Init complete, FSM running");
 	#endif
 }
 
 
-
+//const char* test = "3565623838383532";
+//const char* test2 = "mac_rx 2 63633131353562626666"; 
+char test3[50] = "mac_rx 2 63633131353562626666";
+uint8_t out[100];
 void FSM_run(void){
-	
-	board_t board1 = {DEV_ID, 0, 0, 100, {0, 0, 0, 0}};
+	board_t board1 = {DEV_ID, 0, 0, 100, {0, 0, 0, 0}, 0, SAMPLE_SIZE, ""};
+	int rejoin_attempts = 0;
+	uint8_t lora_wait_rejoin_minutes = 3;
 	while (1){
-		switch (currentState){
+		switch (nextState){
 			case ST_INIT:
-				FSM_system_init();
-				currentState = ST_ACTIVE;
+				FSM_system_init(&board1.lora_joined_err);
+				
+				//ascii_hex_decode(test3, strlen(test3), out, LORA_RX_PAYLOAD_OFFSET);
+				//puts(downlink);
+				if (board1.lora_joined_err) nextState = ST_NOT_JOINED;
+				else nextState = ST_ACTIVE;
+				break;
+			
+			case ST_NOT_JOINED:
+				#ifdef DEBUG_M
+					puts("Not joined");
+				#endif
+				
+				rejoin_attempts++;
+				if (rejoin_attempts < 3) board1.lora_joined_err = lora_join_OTAA();
+				else if (rejoin_attempts >= lora_wait_rejoin_minutes*60) rejoin_attempts = 0;
+
+				nextState = ST_SLEEP;
 				break;
 			
 			case ST_ACTIVE:
-				#ifdef LORA_NODE
-				//if (!lora_joined_flag){wake_up_flag = 0; _delay_ms(180000); lora_join_OTAA();}
+				#ifdef DEBUG_M
+					//puts("Active");
 				#endif
-				//puts("Active");
-				if (wake_up_flag){
-					wake_up_flag = 0;
-					board1.ina219.bus_voltage_avg	+= INA219_readBusVoltageReg();
-					board1.ina219.current_avg		+= INA219_readCurrentReg();
-					board1.batteryLevel = board_get_battery_level();
-					if(!(current_time%SAMPLE_SIZE)){
-						if (frame_counter == 0xFF) frame_counter = 0;
-						board1.frame_counter = frame_counter++;
-						board1.ina219.bus_voltage	= board1.ina219.bus_voltage_avg / SAMPLE_SIZE;
-						board1.ina219.current		= board1.ina219.current_avg / SAMPLE_SIZE;
-						board1.time_stamp = current_time;
-						board1.msg = hex_encode(board1);
+				
+				board1.ina219.bus_voltage_avg	+= INA219_readBusVoltageReg();
+				board1.ina219.current_avg		+= INA219_readCurrentReg();
+				//printf("bus avg: %lu     curr_avg: %lu \n", board1.ina219.bus_voltage_avg, board1.ina219.current_avg);
+				board1.batteryLevel = board_get_battery_level();
+				if (board1.batteryLevel < 60) board_charge(BOARD_CHARGE_ON);
+				else if (board1.batteryLevel > 95) board_charge(BOARD_CHARGE_OFF);
+				if(!(current_time%board1.sample_size) && (current_time != 0)){
+					if (frame_counter == 0xFF) frame_counter = 0;
+					board1.frame_counter = frame_counter++;
+					board1.ina219.bus_voltage	= board1.ina219.bus_voltage_avg / SAMPLE_SIZE;
+					board1.ina219.current		= board1.ina219.current_avg / SAMPLE_SIZE;
+					board1.time_stamp = current_time;
+					board1.msg = hex_encode(board1);
 						
-						#ifndef LORA_NODE
-							//USART_putstring2("500000FF5411");
-							//puts(board1.msg);
-						#else 
-							lora_transmit(board1.msg);
-						#endif
-						board1.ina219.bus_voltage_avg = 0;
-						board1.ina219.current_avg = 0;
-					}
+					#ifndef LORA_NODE
+						puts(board1.msg);
+					#else 
+						//puts(board1.msg);
+						lora_transmit(board1.msg);
+					#endif
+					board1.ina219.bus_voltage_avg = 0;
+					board1.ina219.current_avg = 0;
 				}
-				currentState = ST_SLEEP;
+				nextState = ST_SLEEP;
 				break;
 			
 			case ST_SLEEP:
-				puts("Going to sleep");
+				#ifdef DEBUG_M
+				//puts("Going to sleep");
+				#endif
 				_delay_ms(2); // Delay to allow a print to be written over serial before sleep
 				enter_powerSave();
-				puts("Awake");
 				#ifndef TIMER2
-				//_delay_ms(1000);
+				_delay_ms(1000);
 				#endif
-				currentState = ST_ACTIVE;
+				if(board1.lora_joined_err) nextState = ST_NOT_JOINED;
+				else nextState = ST_ACTIVE;
 				break;
 		}
 	}
 }
 
-
 ISR (INT1_vect)          //External interrupt_zero ISR
 {
-	puts("btn press");
-	lora_transmit("11FF");
+	lora_transmit("020255b17f355403210876");
 }
 
 ISR (USART2_RX_vect){
@@ -110,5 +129,6 @@ ISR (USART2_RX_vect){
 
 ISR(TIMER2_OVF_vect){
 	current_time ++;
-	wake_up_flag = 1;
+	
+	//wake_up_flag = 1;
 }

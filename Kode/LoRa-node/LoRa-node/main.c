@@ -1,6 +1,6 @@
 #include <util/delay.h>
 #include "FSM.h"
-
+#include <USART.h>
 
 
 
@@ -9,10 +9,10 @@
 
 
 int main(void){
-	_delay_ms(100); // Start-up time after pressing reset button
+	_delay_ms(400); // Start-up time after pressing reset button
 	
 	FSM_run();
-	puts("ended");
+	puts("Program ended");
 	return 0;
 }
 

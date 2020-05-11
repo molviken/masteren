@@ -11,17 +11,17 @@
 
 
 
-enum States{
+typedef enum {
 	ST_INIT,
 	ST_SLEEP,
-	ST_ACTIVE
-};
+	ST_ACTIVE,
+	ST_NOT_JOINED
+}States;
+
+volatile uint32_t current_time;
 
 
-
-
-int FSM_init();
 void FSM_run();
-void FSM_system_init(void);
+//void FSM_system_init(uint8_t *joined_flag);
 
 #endif /* FSM_H_ */
