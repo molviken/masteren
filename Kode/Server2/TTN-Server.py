@@ -31,7 +31,6 @@ killSelf = False
 inactive = False
 print("PID: "+str(os.getpid()))
 time_sync_cmd = "0a"
-dev_id_hex = "02"
 def inactivity_check():
     global mqttc
     global inactive, killSelf, killSelf2
@@ -67,18 +66,23 @@ def uplink_callback(msg, client):
     print("Received uplink from ", msg.dev_id, datetime.now())
     payload = b64decode(msg.payload_raw).hex()
     date_now = datetime.now()
-    test = date_now.replace(tzinfo=timezone.utc).timestamp()
-    unixtime_hexstr = format((int)(date_now.replace(tzinfo=timezone.utc).timestamp()), 'x')
-    msg_hex = dev_id_hex+time_sync_cmd+unixtime_hexstr
-    print(msg_hex)
+    unixtime_int = (int)(date_now.replace(tzinfo=timezone.utc).timestamp())
+    unixtime_hexstr = format(unixtime_int, 'x')
+    msg_hex = time_sync_cmd+unixtime_hexstr
+    #print(msg_hex)
     msg_b64 = b64encode(bytes(msg_hex, encoding="utf-8")).decode("utf-8")
     ts = int(payload[4:12], 16)
-    if abs(ts-unixtime)>60:
+    # print("sent ts: ", ts)
+    # print("unix int: ", unixtime_int)
+    # print("unix hex: ", format(unixtime_int, 'x'))
+    # print("diff: ", abs(ts-unixtime_int))
+    if abs(ts-unixtime_int)>60:
         print("correct the time")
-        client.send(dev_id="sensor2",  pay=msg_b64, port=1, conf=False, sched="replace")
+        #client.send(dev_id=msg.dev_id,  pay=msg_b64, port=1, conf=False, sched="first")
     mtx.acquire()
     inactive = False
-    WriteMetaToFile(payload, Start_date)
+    WriteMetaToFile(payload, datetime.now(), msg.dev_id)
+    print("Written to file")
     mtx.release() 
 def mqtt_1():
     handler = HandlerClient(app_id, access_key,discovery_address="discovery.thethings.network:1900")

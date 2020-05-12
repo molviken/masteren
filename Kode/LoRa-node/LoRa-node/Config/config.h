@@ -9,7 +9,8 @@
 #define F_CPU 8000000UL
 #endif
 
-
+#ifndef CONFIG_H
+#define CONFIG_H
 
 /*******  TIMER FUNCTIONALITY			*******/
 //#define TIMER1
@@ -48,11 +49,15 @@
 
 
 // Custom board settings
-#define DEV_ID 0x02								// Id for board
-#define SAMPLE_SIZE 600							// How many 1 sec samples before averaging and transmitting
+#define BOARD_SAMPLE_SIZE 60							// How many 1 sec samples before averaging and transmitting
+#define LEDS PORTB
 #define LED1 PORTB0
 #define LED2 PORTB1
 #define LED3 PORTB2
 #define GYRO_INT PORTD2
 #define DMY_BTN PORTD3
 #define PHOTO_INTENSITY ADC_CHANNEL0
+
+
+
+#endif

@@ -3,14 +3,10 @@
 #include <config.h>
 #include <string.h>
 
-static char rx_buf[30];
+static char rx_buf[50];
 
 static void USART_transmit2( uint8_t data );
 
-void USART_flush0(){
-	unsigned char dmy;
-	while ( !(UCSR0A & (1<<RXC)) ) dmy = UDR0;
-}
 
 int USART_TRANSMIT_printf(char var, FILE *stream) {
 	// translate \n to \r for br@y++ terminal

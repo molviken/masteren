@@ -1,8 +1,5 @@
 from threading import Thread
-devices = {
-    1: "LTE-node 1",
-    2: "LORA-node 1"
-}
+
 
 
 class perpetualTimer():

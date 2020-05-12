@@ -16,8 +16,10 @@
 #include "RN2483A.h"
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
+#include <inttypes.h>
 volatile int duty_cycle;
-
+uint8_t downlink_pairs[100];
+char downlink[100];
 
 static void lora_auto_baud_detect(void);
 static void lora_send_command(char * cmd);
@@ -42,9 +44,6 @@ static uint8_t lora_set_ABP_settings(void);
 static uint8_t lora_set_dcycle(void);
 static uint8_t lora_save_settings(void);
 
-
-char answer[250];
-//const char *downlink;
 void lora_auto_baud_detect(void){
 	DDRD |= (1<<PORTD1);
 	PORTD &= ~(1<<PORTD1);
@@ -100,17 +99,9 @@ uint8_t lora_set_dcycle(void){
 }
 uint8_t lora_reset(){
 	lora_send_command("sys reset");
-	lora_receive_response();
-	return lora_assert_response(answer);
+	return lora_receive_response();
 }
-uint8_t lora_test_command(){
-	lora_send_command("sys get hweui");
-	lora_receive_response();
-	printf("test cmd: ");
-	puts(answer);
-	puts("");
-	return lora_assert_response(answer);
-}
+
 
 void lora_send_command(char * cmd){
 	USART_putstring0(cmd);
@@ -133,6 +124,7 @@ uint8_t lora_receive_response(){
 	}
 	#ifdef DEBUG_M
 	printf("%s\n", resp);
+	//puts("");
 	#endif
 	return lora_assert_response(resp);
 }
@@ -140,7 +132,7 @@ uint8_t lora_assert_response(const char * response){
 	if (!strncmp(response, "ok", strlen("ok")))																return RESP_OK;
 	if (!strncmp(response, "accepted", strlen("accepted")))													return RESP_ACCEPTED;
 	if (!strncmp(response, "mac_tx_ok", strlen("mac_tx_ok")))												return RESP_MAC_TX_OK;
-	if (!strncmp(response, "mac_rx ", strlen("mac_rx "))){strcpy(downlink, response);						return RESP_MAC_RX_INC;}
+	if (!strncmp(response, "mac_rx ", strlen("mac_rx "))){strcpy(downlink,response);						return RESP_MAC_RX_INC;}
 	if (!strncmp(response, "denied", strlen("denied")))														return ERR_DENIED;
 	if (!strncmp(response, "invalid_param", strlen("invalid_param")))										return ERR_INVALID_PARAM;
 	if (!strncmp(response, "no_free_chan", strlen("no_free_chan")))											return ERR_NO_FREE_CH;
@@ -152,22 +144,23 @@ uint8_t lora_assert_response(const char * response){
 	if (!strncmp(response, "frame_counter_err_rejoin_needed", strlen("frame_counter_err_rejoin_needed")))	return ERR_FRAME_COUNTER_ERR_REJOIN_NEEDED;
 	if (!strncmp(response, "invalid_data_len", strlen("invalid_data_len")))									return ERR_INVALID_PARAM;
 	if (!strncmp(response, "mac_err", strlen("mac_err")))													return ERR_MAC_ERR;
-// 	#ifdef DEBUG_M
-// 		puts(response);
-// 	#endif
+ 	#ifdef DEBUG_M
+ 		//puts(response);
+ 	#endif
 	return 0xAA;
 	
 	
 }
 
 uint8_t lora_reset_to_band(){
-	#ifdef DEBUG_M
-		printf("Reset to band: ");
-	#endif
-	
+
 	char cmd[20];
 	#ifdef LORA_BAND
 		sprintf(cmd, "mac reset %d", LORA_BAND);
+	#endif
+	
+	#ifdef DEBUG_M
+		printf("%s: ",cmd);
 	#endif
 	lora_send_command(cmd);
 	return lora_receive_response();
@@ -185,26 +178,25 @@ uint8_t lora_set_adr(){
 	return lora_receive_response();
 }
 uint8_t lora_set_dr(){
-	#ifdef DEBUG_M
-		printf("Set DR: ");
-	#endif
-	
+
 	char cmd[20];
-	#ifdef LORA_DR
-		sprintf(cmd, "mac set dr %d",LORA_DR);
+	sprintf(cmd, "mac set dr %d",LORA_DR);
+	
+	#ifdef DEBUG_M
+		printf("%s: ",cmd);
 	#endif
 	lora_send_command(cmd);
 	return lora_receive_response();
 }
 uint8_t lora_set_pwridx(){
-	#ifdef DEBUG_M
-		printf("Set pwridx: ");
-	#endif
 	
 	char cmd[20];
 	#ifdef LORA_PWRIDX
 	sprintf(cmd, "mac set pwridx %d",LORA_PWRIDX);
-	#endif	
+	#endif
+	#ifdef DEBUG_M
+		printf("%s: ",cmd);
+	#endif
 	lora_send_command(cmd);
 	return lora_receive_response();
 }
@@ -221,17 +213,28 @@ uint8_t lora_save_settings(){
 /********************************************
              OTAA functions					
 ********************************************/
-const char *devEui = "0004A30B00EB9F66";
+#define NODE2
 const char *appEui = "70B3D57ED002E533";
-const char *appKey = "654E5718FCCBB86E95272A1BB24C996D";
+#ifdef NODE1
+	const char *devEui = "0004A30B00EB9F11";
+	const char *appKey = "20159A3B4CDC7B64D49B90B4C8F8FFCB";
+#elif defined(NODE2)
+	const char *devEui = "0004A30B00EB9F22";
+	const char *appKey = "1502F9AD40B8D3999FCA228893A4D30C";
+#elif defined(NODE3)
+	const char *devEui = "0004A30B00EB9F33";
+	const char *appKey = "CA981D632DD2B1A721D6105F32E603AF";
+#endif
 
 uint8_t lora_set_deveui(){
-	#ifdef DEBUG_M
-		printf("Set deveui: ");
-	#endif
+
 	
 	char cmd[50] = "mac set deveui ";
 	strcat(cmd, devEui);
+	
+	#ifdef DEBUG_M
+		printf("%s:  ", cmd);
+	#endif
 	lora_send_command(cmd);
 	return lora_receive_response();
 }
@@ -246,13 +249,12 @@ uint8_t lora_set_appeui(){
 	return lora_receive_response();
 }
 uint8_t lora_set_appkey(){
+	char cmd[50] = "mac set appkey ";
+	strcat(cmd, appKey);
 	#ifdef DEBUG_M
-		printf("Set appkey: ");
+		printf("mac set appkey ****: ");
 	#endif
-	
- 	char cmd[50] = "mac set appkey ";
- 	strcat(cmd, appKey);
- 	lora_send_command(cmd);
+	lora_send_command(cmd);
 	return lora_receive_response();
 }
 uint8_t lora_set_OTAA_settings(uint8_t *joined_err){
@@ -415,57 +417,48 @@ uint8_t lora_init(uint8_t *joined_err){
 	return 0;
 
 }
-uint8_t lora_transmit(const char *payload){
+void lora_transmit(const char *payload){
 	uint8_t err;
 	char buf[100] = "mac tx uncnf 3 ";
 	strcat(buf, payload);
-	
-	#ifdef DEBUG_M
-		printf("Mac tx cmd: ");
-	#endif
+
 	lora_send_command(buf);
 	err = lora_receive_response();
-	
 	if (!err){
-		#ifdef DEBUG_M
-			printf("Mac tx result: ");
-		#endif
+		clear_bit(LEDS,LED3);
 		err = lora_receive_response();
-		//puts(downlink);
 		if(err == RESP_MAC_RX_INC){
-			lora_assert_downlink(downlink);
+			lora_assert_downlink();
 		}
 	}
-	return 0;
+	else set_bit(LEDS,LED3);
 }
 
 
 void lora_assert_downlink(){
-	uint32_t ts;
-	puts("Asserting downlink");
+	static int count = 0;
+	uint32_t ts = 0;
+	uint16_t sample_size_new;
 	size_t str_len = strlen(downlink);
-	//printf("Downlink: %s, with len: %d\n", downlink, str_len);
-	ascii_hex_decode(downlink, str_len, downlink_pairs, 9);
-	//puts("decode complete");
-	if (downlink_pairs[0] == DEV_ID){
-		switch (downlink_pairs[1]){
-			case 0x0A:
-				ts = (uint32_t)downlink_pairs[0] | ((uint32_t)downlink_pairs[1] << 8) | ((uint32_t)downlink_pairs[2] << 16) | ((uint32_t)downlink_pairs[3] << 24);
-				current_time = ts;
-				
-				#ifdef DEBUG_M
-				printf("Changed time to: %lu \n", current_time);
-				#endif
-				break;	
-			case 0xB0:
-				printf("changing data rate\n");
-				break;	
+	//printf("len %d\n", str_len);
+	if (str_len > 28) ascii_hex_decode(downlink, str_len, downlink_pairs, LORA_RX_PAYLOAD_OFFSET);
+	else hex_decode(downlink, str_len, downlink_pairs, LORA_RX_PAYLOAD_OFFSET);
+	//printf("pairs: %02x %02x %02x %02x %02x\n", downlink_pairs[0], downlink_pairs[1], downlink_pairs[2], downlink_pairs[3], downlink_pairs[4]);
+	switch (downlink_pairs[0]){
+		case 0x0a:
+			ts = (uint32_t)downlink_pairs[4] | ((uint32_t)downlink_pairs[3] << 8) | ((uint32_t)downlink_pairs[2] << 16) | ((uint32_t)downlink_pairs[1] << 24);
+			current_time = ts;
+			count ++;
+			break;
+		case 0xb0:
 			
-			case 0xC0:
-				cli();
-				WDTCSR = 0x00;
-				WDTCSR = (1<<WDE);
-				break;	
-		}
+			sample_size_new = (uint16_t)downlink_pairs[2] | ((uint16_t)downlink_pairs[1] << 8);
+			sample_size = sample_size_new;
+			//printf("Transfer rate change with new: %u\n", sample_size);
+			break;
+			
+		case 0xc0:
+			FSM_system_reset();
+			break;
 	}
 }

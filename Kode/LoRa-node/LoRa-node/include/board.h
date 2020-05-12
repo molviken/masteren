@@ -11,7 +11,6 @@
 #define BOARD_H_
 
 typedef struct{
-	uint8_t id;
 	uint8_t frame_counter;
 	uint32_t time_stamp;
 	uint8_t batteryLevel;

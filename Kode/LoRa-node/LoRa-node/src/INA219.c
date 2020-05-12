@@ -43,8 +43,7 @@ int16_t INA219_readBusVoltageReg(){
 	uint8_t value[2];
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_BUSVOLTAGE, value)) return 0;
 	uint16_t total = ((value[1] << 8) | value[0])>>3;
-	printf("real vbus: %u\n", total);
-	if (total < 0x1000) return 0x00;
+	if (total > 0x1000) return 0x00;
 	return total;
 }
 
@@ -57,7 +56,6 @@ uint16_t INA219_readCurrentReg(){
 	uint8_t value[2];
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_CURRENT, value)) return 0;
 	uint16_t total = (value[1] << 8) | value[0];
-	printf("real curr: %u\n", total);
 	if(total>0x8000) return 0x00;  // Remove possibility of corruption with a bug where total is above 0xFFAE with no connected source.
 	return total;
 }
@@ -65,12 +63,16 @@ uint16_t INA219_readCurrentReg(){
 
 uint8_t INA219_init(){
 	if (INA219_setCalibration_16V_400mA()) {
+		#ifdef DEBUG_M
 		printf("Setting calibration failed...\n");
+		#endif
 		return 1;
 	}
 	else{
+		#ifdef DEBUG_M
 		INA219_readCalibrationReg();
 		INA219_readConfigReg();
+		#endif
 		return 0;
 	}
 }

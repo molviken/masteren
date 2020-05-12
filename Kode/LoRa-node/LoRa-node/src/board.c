@@ -33,11 +33,18 @@ void board_gpio_init(void){
 }
 
 void board_charge(int off){
-	if (off) clear_bit(PORTD, PORTD4);
-	else set_bit(PORTD, PORTD4);
+	if (off){
+		clear_bit(PORTD, PORTD4);
+		clear_bit(LEDS, LED1);
+	}
+	else {
+		set_bit(PORTD, PORTD4);
+		set_bit(LEDS, LED1);
+	}
 }
 
 void board_setup(uint8_t *joined_err){
+	puts("test1");
 	#ifndef LORA_NODE
 	USART_init();
 	#endif
@@ -45,14 +52,16 @@ void board_setup(uint8_t *joined_err){
 	board_dmy_btn_init();
 	board_gpio_init();
 	board_charge(0);
-	
+	puts("test2");
 	#ifdef LORA_NODE
 		lora_init(joined_err);
+		
 	#else
 		*joined_err = 0;
 	#endif
 
 	i2c_init();
+	INA219_init();
 	timers_init();
 	sei();
 }
