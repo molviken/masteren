@@ -54,14 +54,13 @@ char test3[50] = "mac_rx 2 63633131353562626666";
 uint8_t out[100];
 void FSM_run(void){
 	sample_size = BOARD_SAMPLE_SIZE;
-	uint16_t vbus = 0, curr = 0;
 	board_t board1 = {0, 0, 100, {0, 0, 0, 0}, 0, sample_size, ""};
 	int rejoin_attempts = 0;
 	uint8_t lora_wait_rejoin_minutes = 3;
 	while (1){
 		if (lora_tx_flag){
 			lora_tx_flag = 0;
-			lora_transmit("02025eb9a7165403210876");
+			lora_transmit("02025ebbe8d05403210876");
 		}
 		switch (nextState){
 			
@@ -87,17 +86,16 @@ void FSM_run(void){
 				#ifdef DEBUG_M
 					//puts("Active");
 				#endif
-				vbus = INA219_readBusVoltageReg();
-				curr = INA219_readCurrentReg();
-				//printf("vbus: %u    curr: %u  \n", vbus,curr);
 				board1.ina219.bus_voltage_avg	+= INA219_readBusVoltageReg();
 				board1.ina219.current_avg		+= INA219_readCurrentReg();
 				board1.batteryLevel = board_get_battery_level();
 				board1.sample_size = sample_size;
-				if (board1.batteryLevel < 60) board_charge(BOARD_CHARGE_ON);
+				if (board1.batteryLevel < 70) board_charge(BOARD_CHARGE_ON);
 				else if (board1.batteryLevel > 95) board_charge(BOARD_CHARGE_OFF);
 				if(!(current_time%board1.sample_size) && (current_time != 0)){
+					#ifdef DEBUG_M
 					puts("It's time");
+					#endif
 					if (frame_counter == 0xFF) frame_counter = 0;
 					board1.frame_counter = frame_counter++;
 					board1.ina219.bus_voltage	= board1.ina219.bus_voltage_avg / board1.sample_size;
@@ -118,9 +116,6 @@ void FSM_run(void){
 				break;
 			
 			case ST_SLEEP:
-				#ifdef DEBUG_M
-				//puts("Going to sleep");
-				#endif
 				_delay_ms(2); // Delay to allow a print to be written over serial before sleep
 				enter_powerSave();
 				#ifndef TIMER2

@@ -65,20 +65,6 @@ def uplink_callback(msg, client):
     global date, mtx, inactive
     print("Received uplink from ", msg.dev_id, datetime.now())
     payload = b64decode(msg.payload_raw).hex()
-    date_now = datetime.now()
-    unixtime_int = (int)(date_now.replace(tzinfo=timezone.utc).timestamp())
-    unixtime_hexstr = format(unixtime_int, 'x')
-    msg_hex = time_sync_cmd+unixtime_hexstr
-    #print(msg_hex)
-    msg_b64 = b64encode(bytes(msg_hex, encoding="utf-8")).decode("utf-8")
-    ts = int(payload[4:12], 16)
-    # print("sent ts: ", ts)
-    # print("unix int: ", unixtime_int)
-    # print("unix hex: ", format(unixtime_int, 'x'))
-    # print("diff: ", abs(ts-unixtime_int))
-    if abs(ts-unixtime_int)>60:
-        print("correct the time")
-        #client.send(dev_id=msg.dev_id,  pay=msg_b64, port=1, conf=False, sched="first")
     mtx.acquire()
     inactive = False
     WriteMetaToFile(payload, datetime.now(), msg.dev_id)
@@ -87,15 +73,9 @@ def uplink_callback(msg, client):
 def mqtt_1():
     handler = HandlerClient(app_id, access_key,discovery_address="discovery.thethings.network:1900")
     mqtt_application = handler.application()
-    # using mqtt client
     mqtt_client = handler.data()
     mqtt_client.set_uplink_callback(uplink_callback)
     mqtt_client.connect()
-    #print("Serving ", app_id)
-    #my_app = mqtt_application.get()
-    #print(my_app)
-    #my_devices = mqtt_application.devices()
-    #print(my_devices)
     while True:
         if killSelf:
             break

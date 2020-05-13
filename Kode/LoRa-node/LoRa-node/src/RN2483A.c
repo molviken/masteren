@@ -213,7 +213,7 @@ uint8_t lora_save_settings(){
 /********************************************
              OTAA functions					
 ********************************************/
-#define NODE2
+#define NODE3
 const char *appEui = "70B3D57ED002E533";
 #ifdef NODE1
 	const char *devEui = "0004A30B00EB9F11";
@@ -436,7 +436,6 @@ void lora_transmit(const char *payload){
 
 
 void lora_assert_downlink(){
-	static int count = 0;
 	uint32_t ts = 0;
 	uint16_t sample_size_new;
 	size_t str_len = strlen(downlink);
@@ -448,7 +447,6 @@ void lora_assert_downlink(){
 		case 0x0a:
 			ts = (uint32_t)downlink_pairs[4] | ((uint32_t)downlink_pairs[3] << 8) | ((uint32_t)downlink_pairs[2] << 16) | ((uint32_t)downlink_pairs[1] << 24);
 			current_time = ts;
-			count ++;
 			break;
 		case 0xb0:
 			

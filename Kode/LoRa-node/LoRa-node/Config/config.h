@@ -34,7 +34,7 @@
 #define UART0
 #define UART2
 #define USART2_START_COND_INTERRUPT				// Enables the RX interrupt from sleep to wake MCU up
-#define DEBUG_M									// Comment for release without any prints
+//#define DEBUG_M									// Comment for release without any prints
 #ifndef DEBUG_BAUD
 	#define DEBUG_BAUD 9600UL
 #endif

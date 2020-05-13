@@ -38,9 +38,7 @@ def WriteMetaToFile(payload, curr_date, dev_id):
     file_name = final_directory+"/"+str(curr_date.date())+".xlsx"
     if not os.path.exists(final_directory):
         os.makedirs(final_directory)
-    print("breaks1")
     try:
-        print("breaks2")
         wb = load_workbook(file_name)
         data_row = [frame_count, curr_date.time(), bat_lvl, vbus, curr, vbus*curr]
         sheet = wb.active
@@ -48,7 +46,6 @@ def WriteMetaToFile(payload, curr_date, dev_id):
         wb.save(file_name)
     
     except FileNotFoundError:
-        print("breaks4")
         header = ["Frame", "Time", "Battery", "Voltage [V]", "Current [mA]", "Power"]
         data_row = [frame_count, curr_date.time(), bat_lvl, vbus, curr, vbus*curr]
         wb = Workbook()
@@ -56,7 +53,6 @@ def WriteMetaToFile(payload, curr_date, dev_id):
         sheet.append(header)
         sheet.append(data_row)
         wb.save(file_name)
-    print("breaks5")
 
 
         
