@@ -227,8 +227,8 @@ void mqtt_evt_handler(struct mqtt_client *const c,
 				}
 			}
 			/* Echo back received data */
-			//data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE,
-				//payload_buf, p->message.payload.len);
+			data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE,
+				payload_buf, p->message.payload.len);
 		} else {
 			printk("mqtt_read_publish_payload: Failed! %d\n", err);
 			printk("Disconnecting MQTT client...\n");
@@ -480,6 +480,9 @@ void main(void)
 	uart_irq_callback_set(uart, uart_cb);
 	uart_irq_rx_enable(uart);
 
+        char rst_msg[20] = "9900";
+        rst_msg[strlen(rst_msg)] = 0x0A;
+	
 	
 	modem_configure();
 
@@ -529,10 +532,11 @@ void main(void)
 		}
                 if (start){
 			data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE, "started", strlen("started"));
+                        uart_fifo_fill(uart,rst_msg, strlen(rst_msg));
 			start = false;
 		}
                 if (mqtt_rec_flag){
-			printk("sending msg: %s", mqtt_rec_msg);
+			puts(mqtt_rec_msg);
 			mqtt_rec_flag = 0;
 			uart_fifo_fill(uart, mqtt_rec_msg, strlen(mqtt_rec_msg));
 		}

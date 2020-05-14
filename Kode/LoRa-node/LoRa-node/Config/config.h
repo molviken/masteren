@@ -18,7 +18,7 @@
 
 
 /*******  LORA FUNCTIONALITY			*******/
-#define LORA_NODE			// Uncomment for Lora functionality
+//#define LORA_NODE			// Uncomment for Lora functionality
 #ifdef LORA_NODE
 	#define OTAA
 	#define LORA_DR 1

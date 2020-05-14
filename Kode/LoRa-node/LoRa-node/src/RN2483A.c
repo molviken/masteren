@@ -18,8 +18,7 @@
 #include <avr/interrupt.h>
 #include <inttypes.h>
 volatile int duty_cycle;
-uint8_t downlink_pairs[100];
-char downlink[100];
+
 
 static void lora_auto_baud_detect(void);
 static void lora_send_command(char * cmd);
@@ -178,10 +177,10 @@ uint8_t lora_set_adr(){
 	return lora_receive_response();
 }
 uint8_t lora_set_dr(){
-
 	char cmd[20];
+	#ifdef LORA_DR
 	sprintf(cmd, "mac set dr %d",LORA_DR);
-	
+	#endif
 	#ifdef DEBUG_M
 		printf("%s: ",cmd);
 	#endif
@@ -428,35 +427,10 @@ void lora_transmit(const char *payload){
 		clear_bit(LEDS,LED3);
 		err = lora_receive_response();
 		if(err == RESP_MAC_RX_INC){
-			lora_assert_downlink();
+			data_receive_flag = 1;
 		}
 	}
 	else set_bit(LEDS,LED3);
 }
 
 
-void lora_assert_downlink(){
-	uint32_t ts = 0;
-	uint16_t sample_size_new;
-	size_t str_len = strlen(downlink);
-	//printf("len %d\n", str_len);
-	if (str_len > 28) ascii_hex_decode(downlink, str_len, downlink_pairs, LORA_RX_PAYLOAD_OFFSET);
-	else hex_decode(downlink, str_len, downlink_pairs, LORA_RX_PAYLOAD_OFFSET);
-	//printf("pairs: %02x %02x %02x %02x %02x\n", downlink_pairs[0], downlink_pairs[1], downlink_pairs[2], downlink_pairs[3], downlink_pairs[4]);
-	switch (downlink_pairs[0]){
-		case 0x0a:
-			ts = (uint32_t)downlink_pairs[4] | ((uint32_t)downlink_pairs[3] << 8) | ((uint32_t)downlink_pairs[2] << 16) | ((uint32_t)downlink_pairs[1] << 24);
-			current_time = ts;
-			break;
-		case 0xb0:
-			
-			sample_size_new = (uint16_t)downlink_pairs[2] | ((uint16_t)downlink_pairs[1] << 8);
-			sample_size = sample_size_new;
-			//printf("Transfer rate change with new: %u\n", sample_size);
-			break;
-			
-		case 0xc0:
-			FSM_system_reset();
-			break;
-	}
-}

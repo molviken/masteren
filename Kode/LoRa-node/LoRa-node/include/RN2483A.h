@@ -52,6 +52,9 @@
 
 
 
+extern uint8_t downlink_pairs[100];
+extern char downlink[100];
+extern volatile uint8_t data_receive_flag;
 uint8_t lora_test_command();
 uint8_t lora_reset();
 

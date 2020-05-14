@@ -17,16 +17,18 @@
 
 # This shows a simple example of an MQTT subscriber.
 
-import context  # Ensures paho is in PYTHONPATH
+#import context  # Ensures paho is in PYTHONPATH
 import paho.mqtt.client as mqtt
-
+from datetime import datetime
+Start_date = datetime.now().time().strftime("%H:%M:%S")
 
 def on_connect(mqttc, obj, flags, rc):
     print("rc: " + str(rc))
 
 
 def on_message(mqttc, obj, msg):
-    print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    Start_date = datetime.now().time().strftime("%H:%M:%S")
+    print(Start_date+ " " + str(msg.payload.decode()))
 
 
 def on_publish(mqttc, obj, mid):

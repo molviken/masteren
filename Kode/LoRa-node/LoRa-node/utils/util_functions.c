@@ -22,7 +22,6 @@ void ascii_hex_decode(const char *in, size_t len, uint8_t *out, int start){
 		hn = buf[j] > '9' ? buf[j] - 'a' + 10 : buf[j] - '0';
 		ln = buf[j+1] > '9' ? buf[j+1] - 'a' + 10 : buf[j+1] - '0';
 		out[h] = (hn << 4) | ln;
-		//printf("%02x", out[h]);
 	}
 	//puts("");
 }

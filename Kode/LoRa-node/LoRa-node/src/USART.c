@@ -3,9 +3,7 @@
 #include <config.h>
 #include <string.h>
 
-static char rx_buf[50];
 
-static void USART_transmit2( uint8_t data );
 
 
 int USART_TRANSMIT_printf(char var, FILE *stream) {
@@ -83,8 +81,8 @@ void  USART_putstring2(char *string){
 	USART_transmit2(0x0A);
 }
 
-char * USART_receiveString2(void){
-	//char rx_buf[250];
+void USART_receiveString2(void){
+	char rx_buf[250];
 	unsigned char rec = 0;
 	int i = 0;
 	while (1){
@@ -96,6 +94,28 @@ char * USART_receiveString2(void){
 		rx_buf[i] = rec;
 		i++;
 	}
-	puts(rx_buf);
-	return &rx_buf[0];
+	#ifdef DEBUG_M
+	printf("rx int: %s\n", rx_buf);
+	#endif
+	strcpy(downlink, rx_buf);
+}
+
+void USART_receiveString0(void){
+	char rx_buf[250];
+	unsigned char rec = 0;
+	int i = 0;
+	while (1){
+		rec = USART_receive0();
+		printf("%02x", rec);
+		if (rec == 0x0A){
+			rx_buf[i] = '\0';
+			break;
+		}
+		rx_buf[i] = rec;
+		i++;
+	}
+	#ifdef DEBUG_M
+	printf("rx int: %s\n", rx_buf);
+	#endif
+	strcpy(downlink, rx_buf);
 }

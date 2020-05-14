@@ -1,4 +1,4 @@
-import context  # Ensures paho is in PYTHONPATH
+#import context  # Ensures paho is in PYTHONPATH
 import paho.mqtt.client as mqtt
 from threading import Thread
 def on_connect(mqttc, obj, flags, rc):
@@ -28,14 +28,10 @@ mqttc.on_publish = on_publish
 mqttc.on_subscribe = on_subscribe
 # Uncomment to enable debug messages
 # mqttc.on_log = on_log
+time_change_cmd = "115ECCE8D0"
+sample_time_cmd = "22003C"
+rst_cmd = "990000"
 mqttc.connect("mqtt.eclipse.org", 1883, 60)
+mqttc.publish("my/subscribe/topic",rst_cmd)
 
-def test():
-    global mqttc
-    mqttc.publish("my/subscribe/topic","asdfadfsadsa")
-    print("t1 done")
-
-t1 = Thread(target=test)
-t1.start()
-t1.join()
 print("main done")
