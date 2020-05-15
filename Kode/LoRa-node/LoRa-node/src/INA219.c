@@ -2,8 +2,8 @@
 #include <ina219.h>
 #include <i2c_master.h>
 #include <stdio.h>
-
-
+#include <config.h>
+#include <util/delay.h>
 
 uint8_t INA219_readCalibrationReg(){
 	uint8_t cal[2];
@@ -33,7 +33,19 @@ uint8_t INA219_setCalibration_16V_400mA() {
 						INA219_CONFIG_GAIN_1_40MV |
 						INA219_CONFIG_BADCRES_12BIT |
 						INA219_CONFIG_SADCRES_12BIT_1S_532US |
-						INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+						INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
+	error += i2c_write2ByteRegister(INA219_ADDRESS, INA219_REG_CONFIG, config);
+	if (error) return 1;
+	else return 0;
+}
+static uint8_t INA219_trigger_oneshow_conversion(void);
+uint8_t INA219_trigger_oneshow_conversion(void){
+	uint8_t error = 0;
+	uint16_t config =	INA219_CONFIG_BVOLTAGERANGE_16V |
+	INA219_CONFIG_GAIN_1_40MV |
+	INA219_CONFIG_BADCRES_12BIT |
+	INA219_CONFIG_SADCRES_12BIT_1S_532US |
+	INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
 	error += i2c_write2ByteRegister(INA219_ADDRESS, INA219_REG_CONFIG, config);
 	if (error) return 1;
 	else return 0;
@@ -41,8 +53,13 @@ uint8_t INA219_setCalibration_16V_400mA() {
 
 int16_t INA219_readBusVoltageReg(){
 	uint8_t value[2];
+	INA219_trigger_oneshow_conversion();
+	_delay_us(600);
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_BUSVOLTAGE, value)) return 0;
 	uint16_t total = ((value[1] << 8) | value[0])>>3;
+	#ifdef DEBUG_M
+	printf("vbus: %u\n", total);
+	#endif
 	if (total > 0x1000) return 0x00;
 	return total;
 }
@@ -54,8 +71,13 @@ uint16_t INA219_readShuntVoltageReg(){ // Not operational
 }
 uint16_t INA219_readCurrentReg(){
 	uint8_t value[2];
+	INA219_trigger_oneshow_conversion();
+	_delay_us(600);
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_CURRENT, value)) return 0;
 	uint16_t total = (value[1] << 8) | value[0];
+	#ifdef DEBUG_M
+	printf("curr: %u\n", total);
+	#endif
 	if(total>0x8000) return 0x00;  // Remove possibility of corruption with a bug where total is above 0xFFAE with no connected source.
 	return total;
 }

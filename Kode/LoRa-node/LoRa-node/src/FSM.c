@@ -79,7 +79,7 @@ void FSM_assert_downlink(){
 void FSM_run(void){
 	data_receive_flag = 0;
 	sample_size = BOARD_SAMPLE_SIZE;
-	board_t board1 = {0, 0, 100, {0, 0, 0, 0}, 0, sample_size, ""};
+	board_t board1 = {0, 100, {0, 0, 0, 0}, 0, sample_size, ""};
 		
 	int rejoin_attempts = 0;
 	uint8_t lora_wait_rejoin_minutes = 3;
@@ -92,10 +92,11 @@ void FSM_run(void){
 		}
 		if (tx_test_flag){
 			tx_test_flag = 0;
+			printf("Transmit test\n");
 			#ifdef LORA_NODE
-				lora_transmit("02025ebbe8d05403210876");
+				lora_transmit("025403210876");
 			#else
-				USART_putstring2("025ebbe8d05403210876");
+				USART_putstring2("025403210876");
 			#endif
 		}
 		switch (nextState){
@@ -124,7 +125,7 @@ void FSM_run(void){
 			case ST_ACTIVE:
 				PORTB ^= (1<<LED2);
 				#ifdef DEBUG_M
-					puts("Active");
+					//puts("Active");
 				#endif
 				board1.ina219.bus_voltage_avg	+= INA219_readBusVoltageReg();
 				board1.ina219.current_avg		+= INA219_readCurrentReg();
@@ -140,14 +141,16 @@ void FSM_run(void){
 					board1.frame_counter = frame_counter++;
 					board1.ina219.bus_voltage	= board1.ina219.bus_voltage_avg / board1.sample_size;
 					board1.ina219.current		= board1.ina219.current_avg / board1.sample_size;
-					board1.time_stamp = current_time;
 					board1.msg = hex_encode(board1);
-						
+					_delay_us(10000);
+					//printf("%02X%02X%04X%04X\n", board1.frame_counter, board1.batteryLevel, board1.ina219.bus_voltage, board1.ina219.current);
 					#ifndef LORA_NODE
 						printf("%s", board1.msg);
 						USART_transmit2(0x0A);
 					#else 
+						#ifdef DEBUG_M
 						//puts(board1.msg);
+						#endif
 						lora_transmit(board1.msg);
 					#endif
 					board1.ina219.bus_voltage_avg = 0;

@@ -42,7 +42,7 @@ uint8_t* hex_decode(const char *in, size_t len,uint8_t *out, int start){
 
 char* hex_encode(board_t board){
 	char *msg = "";
-	sprintf(msg, "%02X%08lX%02X%04X%04X", board.frame_counter, board.time_stamp, board.batteryLevel, board.ina219.bus_voltage, board.ina219.current);
+	sprintf(msg, "%02X%02X%04X%04X", board.frame_counter, board.batteryLevel, board.ina219.bus_voltage, board.ina219.current);
 	return msg;
 }
 

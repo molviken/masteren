@@ -90,12 +90,11 @@ def on_connect(mqttc, obj, flags, rc):
     print("rc: " + str(rc))
 def on_message(mqttc, obj, msg):
     global inactive
-    print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
-    mtx.acquire()
-    unix, sync_needed = timestamp_compare(msg.payload)
+    print(datetime.now() + " " + str(msg.payload))
 
+    mtx.acquire()
     inactive = False
-    WriteMetaToFile(msg.payload,Start_date, date_str, clock_str)
+    WriteMetaToFile(msg.payload, datetime.now(), "LTE-node1")
     mtx.release()
 def on_publish(mqttc, obj, mid):
     print("mid: " + str(mid))
@@ -128,11 +127,10 @@ def payload_test(payload):
 
 if __name__ == "__main__":
     #inactivity_check()
-   # t1 = Thread(target=mqtt_1)
-    #t2 = Thread(target=mqtt_2)
-    #t1.start()
-    #t2.start()
-    mqtt_1()
+    t1 = Thread(target=mqtt_1)
+    t2 = Thread(target=mqtt_2)
+    t1.start()
+    t2.start()
     print("Main thread")
     while True:
         if(killSelf):

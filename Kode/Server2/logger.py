@@ -16,10 +16,9 @@ def payload_parser(payload):
     except AttributeError:
         pass
     f_c = int(payload[0:2],16)
-    ts = int(payload[2:10],16)
-    bat = int(payload[10:12], 16)
-    vbus = int(payload[12:16], 16)*0.004
-    curr = int(payload[16:20], 16)*0.015
+    bat = int(payload[2:4], 16)
+    vbus = int(payload[4:8], 16)*0.004
+    curr = int(payload[8:12], 16)*0.015
     return f_c, ts, bat, vbus, curr
 
 def timestamp_parser(ts):

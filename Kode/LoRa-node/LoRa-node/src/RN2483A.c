@@ -212,7 +212,7 @@ uint8_t lora_save_settings(){
 /********************************************
              OTAA functions					
 ********************************************/
-#define NODE3
+#define NODE1
 const char *appEui = "70B3D57ED002E533";
 #ifdef NODE1
 	const char *devEui = "0004A30B00EB9F11";

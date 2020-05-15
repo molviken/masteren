@@ -12,7 +12,6 @@
 
 typedef struct{
 	uint8_t frame_counter;
-	uint32_t time_stamp;
 	uint8_t batteryLevel;
 	ina219_t ina219;
 	uint8_t lora_joined_err;
