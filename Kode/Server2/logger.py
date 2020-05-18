@@ -19,7 +19,7 @@ def payload_parser(payload):
     bat = int(payload[2:4], 16)
     vbus = int(payload[4:8], 16)*0.004
     curr = int(payload[8:12], 16)*0.015
-    return f_c, ts, bat, vbus, curr
+    return f_c, bat, vbus, curr
 
 def timestamp_parser(ts):
     full_date_str = datetime.datetime.utcfromtimestamp(ts)
@@ -28,8 +28,7 @@ def timestamp_parser(ts):
     return date_str, clock_str
 
 def WriteMetaToFile(payload, curr_date, dev_id):
-    frame_count, ts, bat_lvl, vbus, curr = payload_parser(payload)
-    date_str, clock_str = timestamp_parser(ts)
+    frame_count, bat_lvl, vbus, curr = payload_parser(payload)
 
     #Create directory for each day
     directory = 'Logs'+'\\'
@@ -57,4 +56,4 @@ def WriteMetaToFile(payload, curr_date, dev_id):
         
 #today = datetime.datetime.now()
 #payload_ex = "0435b17f355403210876"
-#WriteMetaToFile(payload_ex, datetime.datetime.now() + datetime.timedelta(days=2), "lte-node1")
+#WriteMetaToFile(payload_ex, datetime.datetime.now() + datetime.timedelta(days=2), "lte-node2")

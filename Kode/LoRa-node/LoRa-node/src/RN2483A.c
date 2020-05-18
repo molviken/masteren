@@ -212,7 +212,7 @@ uint8_t lora_save_settings(){
 /********************************************
              OTAA functions					
 ********************************************/
-#define NODE1
+#define NODE3
 const char *appEui = "70B3D57ED002E533";
 #ifdef NODE1
 	const char *devEui = "0004A30B00EB9F11";
@@ -349,7 +349,7 @@ uint8_t lora_set_ABP_settings(){
 	
 	
 	lora_join_ABP();
-	//lora_transmit("deadbeef");
+	
 	return 0;
 }
 void lora_join_ABP(){
@@ -360,12 +360,7 @@ void lora_join_ABP(){
 	err = lora_receive_response();
 	printf("Mac join ABP result: ");
 	err = lora_receive_response();
-	//if (!err){
-		//printf("Join result: ");
-		//err = lora_receive_response();
-	//}
-	//else printf("Failed sendint join cmd: %02x\n", err);
-	////lora_transmit("deadbeef");
+
 }
 
 
@@ -397,8 +392,6 @@ uint8_t lora_init(uint8_t *joined_err){
 	if (err) return 4;
 	
 	lora_set_dcycle();
-// 	lora_send_command("mac set ch dcycle 0 9");
-// 	lora_receive_response();
 	#ifdef OTAA
 		err = lora_set_OTAA_settings(joined_err);
 		if (err) return 5;	
@@ -424,7 +417,6 @@ void lora_transmit(const char *payload){
 	lora_send_command(buf);
 	err = lora_receive_response();
 	if (!err){
-		clear_bit(LEDS,LED3);
 		err = lora_receive_response();
 		if(err == RESP_MAC_RX_INC){
 			data_receive_flag = 1;

@@ -90,12 +90,17 @@ def on_connect(mqttc, obj, flags, rc):
     print("rc: " + str(rc))
 def on_message(mqttc, obj, msg):
     global inactive
-    print(datetime.now() + " " + str(msg.payload))
-
-    mtx.acquire()
-    inactive = False
-    WriteMetaToFile(msg.payload, datetime.now(), "LTE-node1")
-    mtx.release()
+    payload = msg.payload.decode()
+    Start_date = datetime.now().time().strftime("%H:%M:%S")
+    print(Start_date+ " " + str(payload))
+    if msg.payload.decode() == "started":
+        print("started")
+    else:
+        mtx.acquire()
+        inactive = False
+        WriteMetaToFile(payload, datetime.now(), "LTE-node1")
+        print("Written to file for LTE-node1")
+        mtx.release()
 def on_publish(mqttc, obj, mid):
     print("mid: " + str(mid))
 def on_subscribe(mqttc, obj, mid, granted_qos):
@@ -103,14 +108,15 @@ def on_subscribe(mqttc, obj, mid, granted_qos):
 def on_log(mqttc, obj, level, string):
     print(string)
 def mqtt_2():
+    mqttc = mqtt.Client()
     mqttc.on_message = on_message
     mqttc.on_connect = on_connect
     mqttc.on_publish = on_publish
     mqttc.on_subscribe = on_subscribe
     # Uncomment to enable debug messages
     # mqttc.on_log = on_log
-    mqttc.connect(broker, 1883, 60)
-    mqttc.subscribe(sub_topic, 0)
+    mqttc.connect("mqtt.eclipse.org", 1883, 60)
+    mqttc.subscribe("my/publish/topic", 0)
     mqttc.loop_forever()
     print("MQTT2 done")
 
@@ -127,10 +133,22 @@ def payload_test(payload):
 
 if __name__ == "__main__":
     #inactivity_check()
-    t1 = Thread(target=mqtt_1)
-    t2 = Thread(target=mqtt_2)
-    t1.start()
-    t2.start()
+    #t1 = Thread(target=mqtt_1)
+    #t2 = Thread(target=mqtt_2)
+    #t1.start()
+    #t2.start()
+    mqttc = mqtt.Client()
+    mqttc.on_message = on_message
+    mqttc.on_connect = on_connect
+    mqttc.on_publish = on_publish
+    mqttc.on_subscribe = on_subscribe
+    # Uncomment to enable debug messages
+    # mqttc.on_log = on_log
+    mqttc.connect("mqtt.eclipse.org", 1883, 60)
+    mqttc.subscribe("my/publish/topic", 0)
+
+    mqttc.loop_forever()
+    #mqtt_2()
     print("Main thread")
     while True:
         if(killSelf):

@@ -142,11 +142,10 @@ void FSM_run(void){
 					board1.ina219.bus_voltage	= board1.ina219.bus_voltage_avg / board1.sample_size;
 					board1.ina219.current		= board1.ina219.current_avg / board1.sample_size;
 					board1.msg = hex_encode(board1);
-					_delay_us(10000);
 					//printf("%02X%02X%04X%04X\n", board1.frame_counter, board1.batteryLevel, board1.ina219.bus_voltage, board1.ina219.current);
+					//printf("%02X\n", board1.frame_counter);
 					#ifndef LORA_NODE
-						printf("%s", board1.msg);
-						USART_transmit2(0x0A);
+						puts(board1.msg);
 					#else 
 						#ifdef DEBUG_M
 						//puts(board1.msg);

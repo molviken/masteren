@@ -16,6 +16,7 @@
 //#define TIMER1
 #define TIMER2
 
+//#define INA219_debug
 
 /*******  LORA FUNCTIONALITY			*******/
 #define LORA_NODE			// Uncomment for Lora functionality
@@ -34,7 +35,7 @@
 #define UART0
 #define UART2
 #define USART2_START_COND_INTERRUPT				// Enables the RX interrupt from sleep to wake MCU up
-#define DEBUG_M									// Comment for release without any prints
+//#define DEBUG_M									// Comment for release without any prints
 #ifndef DEBUG_BAUD
 	#define DEBUG_BAUD 9600UL
 #endif
@@ -49,7 +50,7 @@
 
 
 // Custom board settings
-#define BOARD_SAMPLE_SIZE 15							// How many 1 sec samples before averaging and transmitting
+#define BOARD_SAMPLE_SIZE 60							// How many 1 sec samples before averaging and transmitting
 #define LEDS PORTB
 #define LED1 PORTB0
 #define LED2 PORTB1

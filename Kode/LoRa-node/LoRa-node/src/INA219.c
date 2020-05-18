@@ -57,7 +57,7 @@ int16_t INA219_readBusVoltageReg(){
 	_delay_us(600);
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_BUSVOLTAGE, value)) return 0;
 	uint16_t total = ((value[1] << 8) | value[0])>>3;
-	#ifdef DEBUG_M
+	#ifdef INA219_debug
 	printf("vbus: %u\n", total);
 	#endif
 	if (total > 0x1000) return 0x00;
@@ -75,7 +75,7 @@ uint16_t INA219_readCurrentReg(){
 	_delay_us(600);
 	if (i2c_read2ByteRegister(INA219_ADDRESS, INA219_REG_CURRENT, value)) return 0;
 	uint16_t total = (value[1] << 8) | value[0];
-	#ifdef DEBUG_M
+	#ifdef INA219_debug
 	printf("curr: %u\n", total);
 	#endif
 	if(total>0x8000) return 0x00;  // Remove possibility of corruption with a bug where total is above 0xFFAE with no connected source.

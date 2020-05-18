@@ -41,7 +41,7 @@ uint8_t* hex_decode(const char *in, size_t len,uint8_t *out, int start){
 //  1: frame, 2-5: timestamp, 6: battery, 7+8: bus voltage, 9+10: current
 
 char* hex_encode(board_t board){
-	char *msg = "";
+	char *msg = malloc(30);
 	sprintf(msg, "%02X%02X%04X%04X", board.frame_counter, board.batteryLevel, board.ina219.bus_voltage, board.ina219.current);
 	return msg;
 }
