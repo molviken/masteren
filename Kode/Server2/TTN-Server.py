@@ -98,7 +98,7 @@ def on_message(mqttc, obj, msg):
     else:
         mtx.acquire()
         inactive = False
-        WriteMetaToFile(payload, datetime.now(), "LTE-node1")
+        WriteMetaToFile(payload, datetime.now(), "lte-node1")
         print("Written to file for LTE-node1")
         mtx.release()
 def on_publish(mqttc, obj, mid):
@@ -132,23 +132,11 @@ def payload_test(payload):
     #WriteMetaToFile(msg.payload,Start_date, date_str, clock_str)
 
 if __name__ == "__main__":
-    #inactivity_check()
-    #t1 = Thread(target=mqtt_1)
-    #t2 = Thread(target=mqtt_2)
-    #t1.start()
-    #t2.start()
-    mqttc = mqtt.Client()
-    mqttc.on_message = on_message
-    mqttc.on_connect = on_connect
-    mqttc.on_publish = on_publish
-    mqttc.on_subscribe = on_subscribe
-    # Uncomment to enable debug messages
-    # mqttc.on_log = on_log
-    mqttc.connect("mqtt.eclipse.org", 1883, 60)
-    mqttc.subscribe("my/publish/topic", 0)
-
-    mqttc.loop_forever()
-    #mqtt_2()
+    inactivity_check()
+    t1 = Thread(target=mqtt_1)
+    t2 = Thread(target=mqtt_2)
+    t1.start()
+    t2.start()
     print("Main thread")
     while True:
         if(killSelf):

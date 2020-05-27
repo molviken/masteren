@@ -3,6 +3,7 @@ import os
 from base64 import b64encode
 from ttn import HandlerClient
 from datetime import datetime
+import paho.mqtt.client as mqtt
 
 access_key = "ttn-account-v2.2aTBPpoyM78nhSgOKTkNE1At8OzeSUPxMCKlCbRC4jo"
 app_id = "lora-nodes"
@@ -12,11 +13,22 @@ lora_dev3 = "lora_node3"
 lte_node1 = "lte-node1"
 
 Start_date = datetime.now()
-curr_sec = Start_date.time().strftime("%S")
+curr_date = Start_date.strftime("%Y-%m-%d")
+print(curr_date)
 current_directory = os.getcwd()
+main_node_file = current_directory+ "\\Logs\\lora_node2\\"+curr_date+".xlsx" # Node 2
+wb_main = openpyxl.load_workbook(main_node_file)
+sheet = wb_main.active
+last_row = sheet.max_row
+while sheet.cell(column=2, row=last_row).value is None and last_row > 0:
+    last_row -= 1
+last_col_b_value = sheet.cell(column=2, row=last_row).value
+main_node_secs = int(last_col_b_value.strftime("%S"))
+
 
 def sync_msg(node_name):
-    base_cmd = "0a000000"
+    global main_node_secs
+    base_cmd = "11000000"
     final_directory = os.path.join(current_directory, (r''+'Logs'+'\\'+node_name))
     file_name = final_directory+'\\'+str(Start_date.date())+'.xlsx'
     wb  = openpyxl.load_workbook(file_name)
@@ -25,35 +37,45 @@ def sync_msg(node_name):
     while sheet.cell(column=2, row=last_row).value is None and last_row > 0:
         last_row -= 1
     last_col_b_value = sheet.cell(column=2, row=last_row).value
-    mins = int(last_col_b_value.strftime("%M"))
     secs = int(last_col_b_value.strftime("%S"))
-    secs_hex = format(secs, '02x')
+
+    if (abs(secs-main_node_secs) < 3):
+        return "", False
+    if (secs < main_node_secs):
+        resultant = 60 - (main_node_secs-secs)
+        print("less  ",resultant)
+    if (secs > main_node_secs):
+        resultant = secs - main_node_secs
+        print("more  ",resultant)
+
+    secs_hex = format(resultant, '02x')
     cmd = base_cmd + secs_hex
-    #print(cmd)
     cmd64 = b64encode(bytes(cmd, encoding="utf-8")).decode("utf-8")
-    print(node_name+": "+str(secs))
-    return cmd64, secs
+    return cmd64, True
 
 if __name__ == "__main__":
     handler = HandlerClient(app_id, access_key,discovery_address="discovery.thethings.network:1900")
     mqtt_application = handler.application()
     mqtt_client = handler.data()
     mqtt_client.connect()
+    mqttc = mqtt.Client()
+    mqttc.connect("mqtt.eclipse.org", 1883, 60)
+
+    msg_lte, sync_needed = sync_msg("lte-node1")
+    if (sync_needed):
+        mqttc.publish("my/subscribe/topic",msg_lte)
+
     msg1, secs1 = sync_msg("lora_node1")
-    if (secs1 > 4):
+    if (sync_needed):
         mqtt_client.send(dev_id="lora_node1", pay=msg1)
 
-    msg2, secs2 = sync_msg("lora_node2")
-    if (secs2 > 4):
-        mqtt_client.send(dev_id="lora_node2", pay=msg2)
-
     msg3, secs3 = sync_msg("lora_node3")
-    if (secs3 > 4):
+    if (sync_needed):
         mqtt_client.send(dev_id="lora_node3", pay=msg3)
 
 
 
-
+    mqttc.disconnect()
     mqtt_client.close()
     print("Ended")
 

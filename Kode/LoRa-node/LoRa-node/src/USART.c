@@ -28,6 +28,14 @@ void USART_init(){
 		UCSR0C |= (3<<UCSZ0);								// Set frame format:  1stop bit, 8data
 	#endif
 	
+	#ifdef UART1
+		UBRR1H = (unsigned char)(ubrr>>8);
+		UBRR1L = (unsigned char)ubrr;
+		UCSR1B = (1<<RXEN)|(1<<TXEN);						// Enable receiver and transmitter
+		UCSR1C |= (3<<UCSZ0);								// Set frame format:  1stop bit, 8data
+		//stdout = &mystdout;
+	#endif
+	
 	#ifdef UART2
 		/* Set baud rate UART2 */
 		UBRR2H = (unsigned char)(ubrr>>8);
@@ -36,6 +44,11 @@ void USART_init(){
 		UCSR2C |= (3<<UCSZ0);								// Set frame format:  1stop bit, 8data
 		stdout = &mystdout;
 	#endif
+	
+	#ifdef UART1
+	
+	#endif
+	
 }
 
 unsigned char USART_receive0(void){
@@ -46,6 +59,13 @@ unsigned char USART_receive0(void){
 }
 
 void  USART_transmit0( uint8_t data ){
+	/* Wait for empty transmit buffer:*/
+	while ( !( UCSR0A & (1<<UDRE)));
+	/* Put data into buffer:*/
+	UDR0 = data;
+}
+
+void  USART_transmit1( uint8_t data ){
 	/* Wait for empty transmit buffer:*/
 	while ( !( UCSR0A & (1<<UDRE)));
 	/* Put data into buffer:*/

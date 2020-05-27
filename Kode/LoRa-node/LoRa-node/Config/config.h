@@ -16,11 +16,12 @@
 //#define TIMER1
 #define TIMER2
 
-//#define INA219_debug
+
 
 /*******  LORA FUNCTIONALITY			*******/
 #define LORA_NODE			// Uncomment for Lora functionality
 #ifdef LORA_NODE
+	#define NODE1			// Which lora node, kind of like dev id. NODE1-NODE3, this chooses deveui and appkey
 	#define OTAA
 	#define LORA_DR 1
 	#ifdef LORA_DR
@@ -32,13 +33,13 @@
 
 
 /*******  PRINT/USART FUNCTIONALITY		*******/
-#define UART0
-#define UART2
+#define UART0									// Communication with RN2483A
+#define UART1
+#define UART2									// Printf functionality for LoRa nodes, communication with nrf9160dk for LTE node
 #define USART2_START_COND_INTERRUPT				// Enables the RX interrupt from sleep to wake MCU up
 //#define DEBUG_M									// Comment for release without any prints
-#ifndef DEBUG_BAUD
-	#define DEBUG_BAUD 9600UL
-#endif
+//#define INA219_debug							// Uncomment for printing of INA219 vbus and curr registers
+#define DEBUG_BAUD 9600UL
 
 
 /*******  Bit operations				*******/

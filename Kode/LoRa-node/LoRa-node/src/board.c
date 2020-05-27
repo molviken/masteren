@@ -32,8 +32,8 @@ void board_gpio_init(void){
 	
 }
 
-void board_charge(int off){
-	if (off){
+void board_charge(int on){
+	if (on){
 		clear_bit(PORTD, PORTD4);
 		//clear_bit(LEDS, LED1);
 	}

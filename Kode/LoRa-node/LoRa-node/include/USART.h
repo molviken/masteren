@@ -8,6 +8,7 @@ extern char downlink[100];
 void USART_flush0();
 void USART_init();
 void USART_transmit0( uint8_t data );
+void  USART_transmit1( uint8_t data );
 unsigned char USART_receive0(void);
 void USART_putstring0(char *string);
 void USART_transmit2( uint8_t data );

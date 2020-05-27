@@ -20,8 +20,8 @@
 #include <avr/interrupt.h>
 #include "FSM.h"
 
-#define BOARD_CHARGE_OFF 1
-#define BOARD_CHARGE_ON 0
+#define BOARD_CHARGE_OFF 0
+#define BOARD_CHARGE_ON 1
 
 
 States nextState = ST_INIT;
@@ -58,19 +58,16 @@ void FSM_assert_downlink(){
 	//printf("%02X %02X %02X\n", downlink_pairs[0], downlink_pairs[1], downlink_pairs[2]);
 	switch (downlink_pairs[0]){
 		case 0x11:
-			set_bit(LEDS,LED3);
 			ts = (uint32_t)downlink_pairs[4] | ((uint32_t)downlink_pairs[3] << 8) | ((uint32_t)downlink_pairs[2] << 16) | ((uint32_t)downlink_pairs[1] << 24);
 			current_time = ts;
 			break;
 		
 		case 0x22:
-			set_bit(LEDS,LED3);
 			sample_size_new = (uint16_t)downlink_pairs[2] | ((uint16_t)downlink_pairs[1] << 8);
 			sample_size = sample_size_new;
 			break;
 		
 		case 0x99:
-			//USART_putstring2("Resetting...");
 			FSM_system_reset();
 			break;
 	}
@@ -108,6 +105,7 @@ void FSM_run(void){
 				break;
 			
 			case ST_NOT_JOINED:
+				set_bit(LEDS,LED1);
 				#ifdef DEBUG_M
 					puts("Not joined");
 				#endif
@@ -115,14 +113,17 @@ void FSM_run(void){
 				rejoin_attempts++;
 				if (rejoin_attempts < 3) board1.lora_joined_err = lora_join_OTAA();
 				else if (rejoin_attempts >= lora_wait_rejoin_minutes*60) rejoin_attempts = 0;
-
-				nextState = ST_SLEEP;
+				
+				
+				if(board1.lora_joined_err) nextState = ST_ACTIVE;
+				else nextState = ST_SLEEP;
 				break;
 			
 			case ST_DATA_RECEIVED:
 				
 			
 			case ST_ACTIVE:
+				clear_bit(LEDS,LED1);
 				PORTB ^= (1<<LED2);
 				#ifdef DEBUG_M
 					//puts("Active");
@@ -142,8 +143,6 @@ void FSM_run(void){
 					board1.ina219.bus_voltage	= board1.ina219.bus_voltage_avg / board1.sample_size;
 					board1.ina219.current		= board1.ina219.current_avg / board1.sample_size;
 					board1.msg = hex_encode(board1);
-					//printf("%02X%02X%04X%04X\n", board1.frame_counter, board1.batteryLevel, board1.ina219.bus_voltage, board1.ina219.current);
-					//printf("%02X\n", board1.frame_counter);
 					#ifndef LORA_NODE
 						puts(board1.msg);
 					#else 
@@ -152,6 +151,7 @@ void FSM_run(void){
 						#endif
 						lora_transmit(board1.msg);
 					#endif
+					free(board1.msg);
 					board1.ina219.bus_voltage_avg = 0;
 					board1.ina219.current_avg = 0;
 				}

@@ -38,7 +38,7 @@ static uint8_t lora_set_OTAA_settings(uint8_t *joined_err);
 static uint8_t lora_set_appSKey(void);
 static uint8_t lora_set_nwkSKey(void);
 static uint8_t lora_set_devaddr(void);
-static uint8_t lora_set_ABP_settings(void);
+//static uint8_t lora_set_ABP_settings(void);
 
 static uint8_t lora_set_dcycle(void);
 static uint8_t lora_save_settings(void);
@@ -101,6 +101,11 @@ uint8_t lora_reset(){
 	return lora_receive_response();
 }
 
+uint8_t lora_test_command(void){
+	lora_send_command("mac reset 868");
+	return 0;
+	//return lora_receive_response();
+}
 
 void lora_send_command(char * cmd){
 	USART_putstring0(cmd);
@@ -113,6 +118,7 @@ uint8_t lora_receive_response(){
 	int i = 0;
 	while (1){
 		rec = USART_receive0();
+		printf("%c", rec);
 		if (rec == 0x0D){
 			USART_receive0(); // Wait for LF to be sent as well
 			resp[i] = '\0';
@@ -212,7 +218,7 @@ uint8_t lora_save_settings(){
 /********************************************
              OTAA functions					
 ********************************************/
-#define NODE3
+
 const char *appEui = "70B3D57ED002E533";
 #ifdef NODE1
 	const char *devEui = "0004A30B00EB9F11";
@@ -223,6 +229,12 @@ const char *appEui = "70B3D57ED002E533";
 #elif defined(NODE3)
 	const char *devEui = "0004A30B00EB9F33";
 	const char *appKey = "CA981D632DD2B1A721D6105F32E603AF";
+#elif defined(MY_BOARD)
+	const char *devEui = "0004A30B00EB9F19";
+	const char *appKey = "CC384E0AD1BBDB26065D7255996ECFB3";
+#else
+		const char *devEui = "0000000000000000";
+		const char *appKey = "00000000000000000000000000000000";
 #endif
 
 uint8_t lora_set_deveui(){
@@ -353,13 +365,13 @@ uint8_t lora_set_ABP_settings(){
 	return 0;
 }
 void lora_join_ABP(){
-	uint8_t err;
+	//uint8_t err;
 	
 	printf("Mac join ABP cmd: ");
 	lora_send_command("mac join abp");
-	err = lora_receive_response();
+	//err = lora_receive_response();
 	printf("Mac join ABP result: ");
-	err = lora_receive_response();
+	//err = lora_receive_response();
 
 }
 
@@ -372,18 +384,18 @@ uint8_t lora_init(uint8_t *joined_err){
 	
 	#ifdef DEBUG_M
 	puts("Lora init...");
-	#endif	
+	#endif
 	
 
 
 	err = lora_reset_to_band();
 	if (err) return 1;
 	
-		
+	
 	err = lora_set_adr() ;
 	if (err) return 2;
 	
-		
+	
 	err = lora_set_dr();
 	if (err) return 3;
 	
@@ -393,12 +405,12 @@ uint8_t lora_init(uint8_t *joined_err){
 	
 	lora_set_dcycle();
 	#ifdef OTAA
-		err = lora_set_OTAA_settings(joined_err);
-		if (err) return 5;	
+	err = lora_set_OTAA_settings(joined_err);
+	if (err) return 5;
 	#endif
 	#ifdef ABP
-		err = lora_set_ABP_settings();
-		if (err) return 6;
+	err = lora_set_ABP_settings();
+	if (err) return 6;
 	#endif
 	
 	
