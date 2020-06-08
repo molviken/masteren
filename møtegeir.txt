@@ -1,0 +1,23 @@
+møte geir 08.06.2020:
+
+
+micro usb supply, ikke konnektor fig 4.2
+leslig tekst i alle figurer
+
+forklarer hvilken løsning figurene tilhører
+
+ikke snø.
+filosofer om hvor lenge denm overlever strøm, vinkel	
+test lading utladet batteri vs ladet
+
+fiks beskrivelse 6.4 og 6.5, feil dato
+
+vis kart, harald hårfagres gate 5b
+
+appendiks: vedlikehold og oppdatering 
+
+skriv om som skal til for å portere over til mitt kort, hvordan det er tenkt
+
+software i design
+
+bedre figur 4.2, med TTN

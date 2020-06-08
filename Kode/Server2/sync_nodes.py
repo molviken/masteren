@@ -61,17 +61,22 @@ if __name__ == "__main__":
     mqttc = mqtt.Client()
     mqttc.connect("mqtt.eclipse.org", 1883, 60)
 
-    msg_lte, sync_needed = sync_msg("lte-node1")
-    if (sync_needed):
-        mqttc.publish("my/subscribe/topic",msg_lte)
+    #msg_lte, sync_needed = sync_msg("lte-node1")
+    #if (sync_needed):
+     #   mqttc.publish("my/subscribe/topic",msg_lte)
 
-    msg1, secs1 = sync_msg("lora_node1")
-    if (sync_needed):
-        mqtt_client.send(dev_id="lora_node1", pay=msg1)
+    msg1, sync1 = sync_msg("lora_node1")
+    if (sync1):
+        mqtt_client.send(dev_id="lora_node1", pay=msg1, conf=False)
+        
 
-    msg3, secs3 = sync_msg("lora_node3")
-    if (sync_needed):
-        mqtt_client.send(dev_id="lora_node3", pay=msg3)
+    msg3, sync3 = sync_msg("lora_node3")
+    if (sync3):
+        mqtt_client.send(dev_id="lora_node3", pay=msg3, conf=False)
+
+    msg4, sync4 = sync_msg("my_board")
+    if (sync4):
+        mqtt_client.send(dev_id="my_board", pay=msg4, conf=False)
 
 
 

@@ -1,1 +1,8 @@
 MQTTS, better security for communication
+
+
+
+Ting jeg dret meg ut på:
+TX -> TX og RX->RX på modemet og GPSn
+nrf9160 trenger ikke 5V
+TPS61201DRCT kan evt gi 5V og er bedre enn MCP1253T

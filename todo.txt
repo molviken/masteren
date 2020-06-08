@@ -1,0 +1,9 @@
+skaffe adresse fra Geir og legge inn nodenes location.
+skjekk hvor mange pakker tapes og bruk i resultat
+
+diskusjon: kunne brukt short-circuit strategien som Apeland bruker ettersom maks effekt ikke er nødvendig
+
+
+area_of_improvement: 5V spenningsregulatoren er overflødig. 3.3V i 5V format er også bedre.
+		     nrf9160 kan ta inn 3.3V.
+		     Watchdog timer

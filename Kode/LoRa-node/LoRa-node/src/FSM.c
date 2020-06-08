@@ -20,8 +20,8 @@
 #include <avr/interrupt.h>
 #include "FSM.h"
 
-#define BOARD_CHARGE_OFF 0
-#define BOARD_CHARGE_ON 1
+#define BOARD_CHARGE_OFF 1
+#define BOARD_CHARGE_ON 0
 
 
 States nextState = ST_INIT;
@@ -118,15 +118,12 @@ void FSM_run(void){
 				if(board1.lora_joined_err) nextState = ST_ACTIVE;
 				else nextState = ST_SLEEP;
 				break;
-			
-			case ST_DATA_RECEIVED:
-				
-			
+		
 			case ST_ACTIVE:
 				clear_bit(LEDS,LED1);
 				PORTB ^= (1<<LED2);
 				#ifdef DEBUG_M
-					//puts("Active");
+					puts("Active");
 				#endif
 				board1.ina219.bus_voltage_avg	+= INA219_readBusVoltageReg();
 				board1.ina219.current_avg		+= INA219_readCurrentReg();
@@ -147,7 +144,7 @@ void FSM_run(void){
 						puts(board1.msg);
 					#else 
 						#ifdef DEBUG_M
-						//puts(board1.msg);
+						puts(board1.msg);
 						#endif
 						lora_transmit(board1.msg);
 					#endif
@@ -159,14 +156,17 @@ void FSM_run(void){
 				break;
 			
 			case ST_SLEEP:
+				#ifdef DEBUG_M
+					puts("Sleep");
+				#endif
 				_delay_ms(2); // Delay to allow a print to be written over serial before sleep
 				
 				#ifndef TIMER2
 				_delay_ms(1000);
 				#else
+				//_delay_ms(1000);
 				enter_powerSave();
 				#endif
-
 				if(board1.lora_joined_err) nextState = ST_NOT_JOINED;
 				else nextState = ST_ACTIVE;
 				break;
@@ -174,10 +174,11 @@ void FSM_run(void){
 	}
 }
 
-ISR (INT1_vect)          //External interrupt_zero ISR
-{	
-	tx_test_flag = 1;
-}
+//ISR (INT1_vect)          //External interrupt_zero ISR
+//{	
+	////tx_test_flag = 1;
+	//puts("button pressed");
+//}
 
 ISR (USART2_RX_vect){
 	USART_receiveString2();
@@ -186,5 +187,6 @@ ISR (USART2_RX_vect){
 
 
 ISR(TIMER2_OVF_vect){
+	//puts("s");
 	current_time ++;
 }

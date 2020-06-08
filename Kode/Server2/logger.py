@@ -38,14 +38,14 @@ def WriteMetaToFile(payload, curr_date, dev_id):
         os.makedirs(final_directory)
     try:
         wb = load_workbook(file_name)
-        data_row = [frame_count, curr_date.time(), bat_lvl, vbus, curr, vbus*curr/1000]
+        data_row = [frame_count, curr_date.time(), bat_lvl, vbus, curr, vbus*curr]
         sheet = wb.active
         sheet.append(data_row)
         wb.save(file_name)
     
     except FileNotFoundError:
         header = ["Frame", "Time", "Battery", "Voltage [V]", "Current [mA]", "Power"]
-        data_row = [frame_count, curr_date.time(), bat_lvl, vbus, curr, vbus*curr/1000]
+        data_row = [frame_count, curr_date.time(), bat_lvl, vbus, curr, vbus*curr]
         wb = Workbook()
         sheet = wb.active
         sheet.append(header)

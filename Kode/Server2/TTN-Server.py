@@ -84,8 +84,8 @@ def mqtt_1():
     print("MQTT1 done")
 
 broker = "mqtt.eclipse.org"
-pub_topic = "my/subscribe/topic"
-sub_topic = "my/publish/topic"
+pub_topic = "b443lte/subscribe"
+sub_topic = "b443lte/publish"
 def on_connect(mqttc, obj, flags, rc):
     print("rc: " + str(rc))
 def on_message(mqttc, obj, msg):
@@ -116,7 +116,7 @@ def mqtt_2():
     # Uncomment to enable debug messages
     # mqttc.on_log = on_log
     mqttc.connect("mqtt.eclipse.org", 1883, 60)
-    mqttc.subscribe("my/publish/topic", 0)
+    mqttc.subscribe("b443lte/publish", 0)
     mqttc.loop_forever()
     print("MQTT2 done")
 
@@ -132,11 +132,10 @@ def payload_test(payload):
     #WriteMetaToFile(msg.payload,Start_date, date_str, clock_str)
 
 if __name__ == "__main__":
-    inactivity_check()
     t1 = Thread(target=mqtt_1)
-    t2 = Thread(target=mqtt_2)
+    #t2 = Thread(target=mqtt_2)
     t1.start()
-    t2.start()
+    #t2.start()
     print("Main thread")
     while True:
         if(killSelf):

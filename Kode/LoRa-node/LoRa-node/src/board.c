@@ -29,17 +29,17 @@ void board_dmy_btn_init(void){
 
 void board_gpio_init(void){
 	DDRD |= (1 << DDRD4);	  // Set PD4 as output
-	
+	DDRB |= (1 << PORTB0);
+	DDRB |= (1 << PORTB1);
+	DDRB |= (1 << PORTB2);
 }
 
-void board_charge(int on){
-	if (on){
-		clear_bit(PORTD, PORTD4);
-		//clear_bit(LEDS, LED1);
+void board_charge(int off){
+	if (off){
+		set_bit(PORTD, PORTD4);
 	}
 	else {
-		set_bit(PORTD, PORTD4);
-		//set_bit(LEDS, LED1);
+		clear_bit(PORTD, PORTD4);
 	}
 }
 

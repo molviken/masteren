@@ -103,8 +103,7 @@ uint8_t lora_reset(){
 
 uint8_t lora_test_command(void){
 	lora_send_command("mac reset 868");
-	return 0;
-	//return lora_receive_response();
+	return lora_receive_response();
 }
 
 void lora_send_command(char * cmd){
@@ -118,7 +117,6 @@ uint8_t lora_receive_response(){
 	int i = 0;
 	while (1){
 		rec = USART_receive0();
-		printf("%c", rec);
 		if (rec == 0x0D){
 			USART_receive0(); // Wait for LF to be sent as well
 			resp[i] = '\0';
