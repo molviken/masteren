@@ -19,7 +19,7 @@
 
 
 /*******  LORA FUNCTIONALITY			*******/
-#define LORA_NODE			// Uncomment for Lora functionality
+//#define LORA_NODE			// Uncomment for Lora functionality
 #ifdef LORA_NODE
 	#define MY_BOARD			// Which lora node, kind of like dev id. NODE1-NODE3, this chooses deveui and appkey
 	#define OTAA

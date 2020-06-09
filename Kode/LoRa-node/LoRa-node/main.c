@@ -20,30 +20,30 @@ void lora_auto_baud_detect(void){
 
 
 int main(void){
-	MCUSR &= ~(1 << WDRF);
-	wdt_disable();
-	_delay_ms(400); // Start-up time after pressing reset button
-
-	DDRB |= (1<<LED1) | (1<<LED2) | (1<<LED3);
-	FSM_run();
-	puts("Program ended");
+	//MCUSR &= ~(1 << WDRF);
+	//wdt_disable();
+	//_delay_ms(400); // Start-up time after pressing reset button
+//
+	//DDRB |= (1<<LED1) | (1<<LED2) | (1<<LED3);
+	//FSM_run();
+	//puts("Program ended");
 	
-	//_delay_ms(400);
-	//
-	//uint8_t join;
-	//board_setup(&join);
-	//puts("hei");
-	//uint16_t vbus,curr;
-	//while(1){
-		//PORTD |= (1<<PORTD4);
-		//_delay_us(1);
-		//vbus = INA219_readBusVoltageReg();
-		//curr = INA219_readCurrentReg();
-		//
-		//printf("vbus: %.2f      curr: %.2f \n", vbus*0.004, curr*0.015);
-		//
-		//_delay_ms(1500);
-	//}
+	_delay_ms(400);
+	
+	uint8_t join;
+	board_setup(&join);
+	puts("hei");
+	uint16_t vbus,curr;
+	while(1){
+		PORTD |= (1<<PORTD4);
+		_delay_us(1);
+		vbus = INA219_readBusVoltageReg();
+		curr = INA219_readCurrentReg();
+		
+		printf("vbus: %.2f      curr: %.2f \n", vbus*0.004, curr*0.015);
+		
+		_delay_ms(1500);
+	}
 	
 	return 0;
 }
